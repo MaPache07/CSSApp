@@ -1,4 +1,4 @@
-package com.uca.app_css.ui.home
+package com.uca.app_css.ui.all_projects
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.uca.app_css.R
 
-class HomeFragment : Fragment() {
+class AllProjectsFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var allProjectsViewModel: AllProjectsViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+        allProjectsViewModel =
+                ViewModelProvider(this).get(AllProjectsViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_all_projects, container, false)
+        val textView: TextView = root.findViewById(R.id.text_dashboard)
+        allProjectsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

@@ -1,4 +1,4 @@
-package com.uca.app_css.ui.dashboard
+package com.uca.app_css.ui.my_projects
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.uca.app_css.R
 
-class DashboardFragment : Fragment() {
+class MyProjectsFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var myProjectsViewModel: MyProjectsViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-                ViewModelProvider(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
+        myProjectsViewModel =
+                ViewModelProvider(this).get(MyProjectsViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_my_projects, container, false)
+        val textView: TextView = root.findViewById(R.id.text_home)
+        myProjectsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
