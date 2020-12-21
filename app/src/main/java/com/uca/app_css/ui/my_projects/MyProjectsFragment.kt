@@ -2,6 +2,7 @@ package com.uca.app_css.ui.my_projects
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.fragment.app.findFragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.uca.app_css.R
+import com.uca.app_css.ui.all_projects.AllProjectsFragment
 import com.uca.app_css.ui.login.LoginFragment
 
 
@@ -32,21 +34,20 @@ class MyProjectsFragment : Fragment(){
                 ViewModelProvider(this).get(MyProjectsViewModel::class.java)
         mAuth = FirebaseAuth.getInstance()
         val root = inflater.inflate(R.layout.fragment_my_projects, container, false)
-        //val textView: TextView = root.findViewById(R.id.text_home)
-        val parentFrag = MyProjectsFragment()
-
+        //val parentFrag = MyProjectsFragment()
+/*
         if(mAuth.currentUser == null){
 
             val childFragment: Fragment = LoginFragment()
             childFragmentManager.beginTransaction().replace(R.id.child_fragment_container, childFragment).commit()
         }
         else{
-            val childFragment: Fragment = LoginFragment()
+            val childFragment: Fragment = AllProjectsFragment()
             childFragmentManager.beginTransaction().replace(R.id.child_fragment_container, childFragment).commit()
-        }
-        /*myProjectsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })*/
+            Log.d("HOLA","llego aca")
+            Log.d("HOLA",mAuth.currentUser!!.email.toString())
+        }*/
         return root
     }
+    //override fun
 }

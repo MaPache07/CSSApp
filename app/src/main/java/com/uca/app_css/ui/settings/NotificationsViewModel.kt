@@ -1,4 +1,4 @@
-package com.uca.app_css.ui.notifications
+package com.uca.app_css.ui.settings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
