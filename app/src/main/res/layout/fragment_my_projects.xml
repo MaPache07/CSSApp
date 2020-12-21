@@ -20,10 +20,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/child_fragment_container"
+    <Button
+        android:id="@+id/logout_btn"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:text="+ Agregar proyectos"
+        android:textAllCaps="false"
+        android:textSize="@dimen/small_text_size"
+        android:layout_marginLeft="@dimen/normal_padding"
+        android:layout_marginRight="@dimen/normal_padding"
+        tools:ignore="MissingConstraints">
+    </Button>
 
-    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
