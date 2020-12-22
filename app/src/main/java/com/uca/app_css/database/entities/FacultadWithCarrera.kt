@@ -3,7 +3,7 @@ package com.uca.app_css.database.entities
 import androidx.room.Embedded
 import androidx.room.Relation
 
-data class FacultadXCarrera(
+data class FacultadWithCarrera(
     @Embedded val facultad: Facultad,
     @Relation(
         parentColumn = "idFacultad",
