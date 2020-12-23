@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity(tableName = "Proyecto")
+@Entity(tableName = "proyecto")
 data class Proyecto(
     @PrimaryKey
     val idProyecto: Int,

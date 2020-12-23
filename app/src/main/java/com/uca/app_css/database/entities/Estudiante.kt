@@ -3,7 +3,7 @@ package com.uca.app_css.database.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Estudiante")
+@Entity(tableName = "estudiante")
 data class Estudiante(
     @PrimaryKey
     val idEstudiante: Int,

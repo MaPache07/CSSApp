@@ -3,7 +3,7 @@ package com.uca.app_css.database.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Admin")
+@Entity(tableName = "admin")
 data class Admin(
     @PrimaryKey
     val idAdmin: Int,
