@@ -26,14 +26,12 @@ interface ProyectoDAO {
     @Query("SELECT * FROM proyecto WHERE idProyecto = :id")
     fun getProyecto(id: Int): Proyecto
 
-    @Query("SELECT * FROM proyecto p " +
-                "INNER JOIN proyectoXCarrera pc ON p.idProyecto = pc.idProyecto " +
-                "INNER JOIN carrera c ON pc.idCarrera = c.idCarrera")
+    @Query("SELECT * FROM proyecto p INNER JOIN proyectoXCarrera pc ON p.idProyecto = pc.idProyecto " +
+                "INNER JOIN carrera c ON pc.idCarrera = c.idCarrera WHERE c.idCarrera = :idCarrera")
     fun getProyectoWithCarrera(idCarrera: Int): LiveData<List<Proyecto>>
 
-    @Query("SELECT * FROM proyecto p " +
-                "INNER JOIN proyectoXEstudiante pe ON p.idProyecto = pe.idProyecto " +
-                "INNER JOIN estudiante e ON pe.idEstudiante = e.idEstudiante")
+    @Query("SELECT * FROM proyecto p INNER JOIN proyectoXEstudiante pe ON pe.idEstudiante = e.idEstudiante " +
+                "INNER JOIN estudiante e ON pe.idEstudiante = e.idEstudiante WHERE e.idEstudiante = :idEstudiante")
     fun getProyectoWithEstudiante(idEstudiante: Int): LiveData<List<Proyecto>>
 
     @Query("DELETE FROM proyecto")
