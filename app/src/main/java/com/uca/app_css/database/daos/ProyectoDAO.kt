@@ -5,12 +5,20 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.uca.app_css.database.entities.Proyecto
+import com.uca.app_css.database.entities.ProyectoXCarrera
+import com.uca.app_css.database.entities.ProyectoXEstudiante
 
 @Dao
 interface ProyectoDAO {
 
     @Insert
     suspend fun insert(proyecto: Proyecto)
+
+    @Insert
+    suspend fun insertProyectoXCarrera(proyectoXCarrera: ProyectoXCarrera)
+
+    @Insert
+    suspend fun insertProyectoXEstudiante(proyectoXEstudiante: ProyectoXEstudiante)
 
     @Query("SELECT * FROM proyecto")
     fun getAllProyecto() : LiveData<List<Proyecto>>
@@ -30,4 +38,10 @@ interface ProyectoDAO {
 
     @Query("DELETE FROM proyecto")
     suspend fun nukeTable()
+
+    @Query("DELETE FROM proyectoXCarrera")
+    suspend fun nukeProyectoXCarrera()
+
+    @Query("DELETE FROM proyectoXEstudiante")
+    suspend fun nukeProyectoXEstudiante()
 }

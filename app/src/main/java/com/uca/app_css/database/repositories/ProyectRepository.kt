@@ -47,6 +47,16 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
         proyectoDAO.insert(proyecto)
     }
 
+    @WorkerThread
+    suspend fun insertProyectoXCarrera(proyectoXCarrera: ProyectoXCarrera){
+        proyectoDAO.insertProyectoXCarrera(proyectoXCarrera)
+    }
+
+    @WorkerThread
+    suspend fun insertProyectoXEstudiante(proyectoXEstudiante: ProyectoXEstudiante){
+        proyectoDAO.insertProyectoXEstudiante(proyectoXEstudiante)
+    }
+
     //GETs
 
     fun getAdmin(id: Int) = adminDAO.getAdmin(id)
@@ -63,7 +73,7 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
 
     //QUERYs
 
-    fun getCarreraWithFacultad(idFacultad: Int) = carreraDAO.getCarrerasWithFacultad(idFacultad)
+    fun getCarreraWithFacultad(idFacultad: Int) = carreraDAO.getCarreraWithFacultad(idFacultad)
 
     fun getEstudianteWithProyecto(idProyecto: Int) = estudianteDAO.getEstudianteWithProyecto(idProyecto)
 
@@ -103,5 +113,15 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
     @WorkerThread
     suspend fun nukeProyecto(){
         return proyectoDAO.nukeTable()
+    }
+
+    @WorkerThread
+    suspend fun nukeProyectoXCarrera(){
+        return proyectoDAO.nukeProyectoXCarrera()
+    }
+
+    @WorkerThread
+    suspend fun nukeProyectoXEstudiante(){
+        return proyectoDAO.nukeProyectoXEstudiante()
     }
 }

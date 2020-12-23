@@ -20,7 +20,7 @@ interface CarreraDAO {
     fun getCarrera(id: Int): Carrera
 
     @Query("SELECT * FROM carrera WHERE idFacultad =:id")
-    fun getCarrerasWithFacultad(id: Int): LiveData<List<Carrera>>
+    fun getCarreraWithFacultad(id: Int): LiveData<List<Carrera>>
 
     @Query("DELETE FROM carrera")
     suspend fun nukeTable()
