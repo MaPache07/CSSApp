@@ -50,8 +50,8 @@ class AllProjectsFragment : Fragment() {
         }
     }
     fun onClicked(item : Proyecto){
-        /*val extras = Bundle()
+        val extras = Bundle()
         extras.putParcelable(PROJECT_KEY, item)
-        startActivity(Intent(context, ProjectInfoActivity::class.java).putExtras(extras))*/
+        startActivity(Intent(context, ProjectInfoActivity::class.java).putExtras(extras))
     }
 }
