@@ -121,6 +121,38 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
         return proyects
     }
 
+    suspend fun getAllPerfilAsync(): List<Perfil>{
+        var perfiles = listOf<Perfil>()
+        db.collection("Perfil").get().addOnSuccessListener {documents ->
+            for(document in documents){
+                val perfil = document.toObject(Perfil::class.java)
+                perfiles += perfil
+            }
+        }.await()
+        return perfiles
+    }
+
+    suspend fun getAllProyectoXCarreraAsync(): List<ProyectoXCarrera>{
+        var proxCars = listOf<ProyectoXCarrera>()
+        db.collection("ProyectoxCarrera").get().addOnSuccessListener {documents ->
+            for(document in documents){
+                val proxCar = document.toObject(ProyectoXCarrera::class.java)
+                proxCars += proxCar
+            }
+        }.await()
+        return proxCars
+    }
+
+    suspend fun getAllAdminAsync(): List<Admin>{
+        var admins = listOf<Admin>()
+        db.collection("Admin").get().addOnSuccessListener {documents ->
+            for(document in documents){
+                val admin = document.toObject(Admin::class.java)
+                admins += admin
+            }
+        }.await()
+        return admins
+    }
 
     //NukeTables
 

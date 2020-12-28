@@ -16,7 +16,7 @@ class ProjectInfoActivity : AppCompatActivity() {
     fun bindData(){
         val proyecto : Proyecto? = intent.extras!!.getParcelable(PROJECT_KEY)
 
-        var test2: TextView = findViewById(R.id.test2)
-        test2.text = proyecto!!.nombre
+        /*var test2: TextView = findViewById(R.id.test2)
+        test2.text = proyecto!!.nombre*/
     }
 }

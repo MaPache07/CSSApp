@@ -97,6 +97,70 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
 
     fun getProyectoWithEstudiante(idEstudiante: Int) = repository.getProyectoWithEstudiante(idEstudiante)
 
+    //GETFireBase
+
+    fun getAllFacultadAsync() = viewModelScope.launch {
+        val response = repository.getAllFacultadAsync()
+        if(response.isNotEmpty()){
+            this@ProyectViewModel.nukeFacultad()
+            response.forEach {
+                this@ProyectViewModel.insertFacultad(it)
+            }
+        }
+    }
+
+    fun getAllCarreraAsync() = viewModelScope.launch {
+        val response = repository.getAllCarreraAsync()
+        if(response.isNotEmpty()){
+            this@ProyectViewModel.nukeCarrera()
+            response.forEach {
+                this@ProyectViewModel.insertCarrera(it)
+            }
+        }
+    }
+
+    fun getAllProyectoAsync() = viewModelScope.launch {
+        val response = repository.getAllProyectoAsync()
+        if(response.isNotEmpty()){
+            this@ProyectViewModel.nukeProyecto()
+            response.forEach {
+                this@ProyectViewModel.insertProyecto(it)
+            }
+        }
+    }
+
+
+
+    fun getAllPerfilAsync() = viewModelScope.launch {
+        val response = repository.getAllPerfilAsync()
+        if(response.isNotEmpty()){
+            this@ProyectViewModel.nukePerfil()
+            response.forEach {
+                this@ProyectViewModel.insertPerfil(it)
+            }
+        }
+    }
+
+    fun getAllProyectoXCarreraAsync() = viewModelScope.launch {
+        val response = repository.getAllProyectoXCarreraAsync()
+        if(response.isNotEmpty()){
+            this@ProyectViewModel.nukeProyectoXCarrera()
+            response.forEach {
+                this@ProyectViewModel.insertProyectoXCarrera(it)
+            }
+        }
+    }
+
+    fun getAllAdminAsync() = viewModelScope.launch {
+        val response = repository.getAllAdminAsync()
+        if(response.isNotEmpty()){
+            this@ProyectViewModel.nukeAdmin()
+            response.forEach {
+                this@ProyectViewModel.insertAdmin(it)
+            }
+        }
+    }
+
     //NukeTables
 
     private suspend fun nukeAdmin() = repository.nukeAdmin()
