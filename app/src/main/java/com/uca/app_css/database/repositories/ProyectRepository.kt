@@ -2,8 +2,10 @@ package com.uca.app_css.database.repositories
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
+import com.google.firebase.firestore.FirebaseFirestore
 import com.uca.app_css.database.daos.*
 import com.uca.app_css.database.entities.*
+import kotlinx.coroutines.tasks.await
 
 class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: CarreraDAO, private val estudianteDAO: EstudianteDAO,
                         private val facultadDAO: FacultadDAO, private val perfilDAO: PerfilDAO, private val proyectoDAO: ProyectoDAO) {
@@ -14,6 +16,7 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
     val allFacultad: LiveData<List<Facultad>> = facultadDAO.getAllFacultad()
     val allPerfil: LiveData<List<Perfil>> = perfilDAO.getAllPerfil()
     val allProyecto: LiveData<List<Proyecto>> = proyectoDAO.getAllProyecto()
+    val db = FirebaseFirestore.getInstance()
 
     //INSERTS
 
@@ -82,6 +85,42 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
     fun getProyectoWithCarrera(idCarrera: Int) = proyectoDAO.getProyectoWithCarrera(idCarrera)
 
     fun getProyectoWithEstudiante(idEstudiante: Int) = proyectoDAO.getProyectoWithEstudiante(idEstudiante)
+
+    //GETFireBase
+
+    suspend fun getAllFacultadAsync(): List<Facultad>{
+        var facultades = listOf<Facultad>()
+        db.collection("Facultad").get().addOnSuccessListener {documents ->
+            for(document in documents){
+                val facultad = document.toObject(Facultad::class.java)
+                facultades += facultad
+            }
+        }.await()
+        return facultades
+    }
+
+    suspend fun getAllCarreraAsync(): List<Carrera>{
+        var carreras = listOf<Carrera>()
+        db.collection("Carrera").get().addOnSuccessListener {documents ->
+            for(document in documents){
+                val carrera = document.toObject(Carrera::class.java)
+                carreras += carrera
+            }
+        }.await()
+        return carreras
+    }
+
+    suspend fun getAllProyectoAsync(): List<Proyecto>{
+        var proyects = listOf<Proyecto>()
+        db.collection("Proyecto").get().addOnSuccessListener {documents ->
+            for(document in documents){
+                val proyect = document.toObject(Proyecto::class.java)
+                proyects += proyect
+            }
+        }.await()
+        return proyects
+    }
+
 
     //NukeTables
 

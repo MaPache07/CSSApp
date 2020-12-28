@@ -1,17 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.google.android.material.circularreveal.CircularRevealRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ProjectInfoActivity">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/cardview_all_projects"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="4dp">
+
+    <ImageView
+        android:id="@+id/project_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/uca"
+        android:layout_margin="@dimen/normal_padding"
+        android:layout_gravity="center_horizontal"/>
 
     <TextView
+        android:id="@+id/nombre_project_individual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/test2"
-        android:hint="HOLAAA MUNDOOO">
+        android:gravity="start"
+        android:hint="tin marin, guia "
+        android:textAllCaps="false"
+        android:layout_below="@id/project_image"
+        android:layout_marginStart="@dimen/normal_padding"
+        android:layout_marginEnd="@dimen/normal_padding"
+        android:layout_marginBottom="@dimen/normal_padding"/>
+    <TextView
+        android:id="@+id/tipo_project_individual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:hint="horas internas "
+        android:textAllCaps="true"
+        android:layout_below="@id/nombre_project_individual"
+        android:layout_marginStart="@dimen/normal_padding"
+        android:layout_marginEnd="@dimen/normal_padding"
+        android:layout_marginBottom="@dimen/normal_padding"/>
+    <TextView
+        android:id="@+id/descripcion_project_individual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:hint="descripcion del proyecto "
+        android:textAllCaps="true"
+        android:layout_below="@id/tipo_project_individual"
+        android:layout_marginStart="@dimen/normal_padding"
+        android:layout_marginEnd="@dimen/normal_padding"
+        android:layout_marginBottom="@dimen/normal_padding"/>
+    <TextView
+        android:id="@+id/fech_in_project_individual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:hint="fecha inicio"
+        android:textAllCaps="true"
+        android:layout_below="@id/descripcion_project_individual"
+        android:layout_marginStart="@dimen/normal_padding"
+        android:layout_marginEnd="@dimen/normal_padding"
+        android:layout_marginBottom="@dimen/normal_padding"/>
+    <TextView
+        android:id="@+id/fech_fin_project_individual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:hint="fecha fin "
+        android:textAllCaps="true"
+        android:layout_below="@id/fech_in_project_individual"
+        android:layout_marginStart="@dimen/normal_padding"
+        android:layout_marginEnd="@dimen/normal_padding"
+        android:layout_marginBottom="@dimen/normal_padding"/>
 
-    </TextView>
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</com.google.android.material.circularreveal.CircularRevealRelativeLayout >
