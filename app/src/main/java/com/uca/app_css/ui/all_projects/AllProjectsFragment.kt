@@ -1,31 +1,57 @@
 package com.uca.app_css.ui.all_projects
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.uca.app_css.ProjectInfoActivity
 import com.uca.app_css.R
+import com.uca.app_css.adapters.AllProjectsAdapter
+import com.uca.app_css.database.entities.Proyecto
+import com.uca.app_css.database.viewmodels.ProyectViewModel
+import com.uca.app_css.utilities.AppConstants.PROJECT_KEY
 
 class AllProjectsFragment : Fragment() {
 
-    private lateinit var allProjectsViewModel: AllProjectsViewModel
+    private lateinit var auth: FirebaseAuth
+    private lateinit var allProjectsViewModel: ProyectViewModel
+    private lateinit var  viewManager: RecyclerView.LayoutManager
+    private lateinit var viewAdapter: AllProjectsAdapter
+    lateinit var viewF: View
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        allProjectsViewModel =
-                ViewModelProvider(this).get(AllProjectsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_all_projects, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        allProjectsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        super.onCreateView(inflater, container, savedInstanceState)
+        allProjectsViewModel = ViewModelProvider(this).get(ProyectViewModel::class.java)
+        viewF = inflater.inflate(R.layout.fragment_all_projects, container, false)
+        auth = FirebaseAuth.getInstance()
+        initRecycler(emptyList())
+        return viewF
+    }
+    fun initRecycler(match : List<Proyecto>){
+        viewManager = LinearLayoutManager(context)
+        viewAdapter = AllProjectsAdapter(match,{ matchItem: Proyecto-> onClicked(matchItem)})
+        viewF.findViewById<RecyclerView>(R.id.recycler).apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
+    }
+    fun onClicked(item : Proyecto){
+        /*val extras = Bundle()
+        extras.putParcelable(PROJECT_KEY, item)
+        startActivity(Intent(context, ProjectInfoActivity::class.java).putExtras(extras))*/
     }
 }

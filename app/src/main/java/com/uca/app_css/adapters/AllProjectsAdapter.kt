@@ -31,15 +31,10 @@ class AllProjectsAdapter(val projects: List<Proyecto>, val clickListener: (Proye
 
     inner class ProyectoHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item : Proyecto, clickListener: (Proyecto) -> Unit) = with(itemView){
-            itemView.findViewById<TextView>(R.id.nombre_project_individual).text = item.nombre
-            this.setOnClickListener{clickListener(item)}
-        }
-
-
-        //val proyecto = v.nombreTextView
-        //para pasar la imagen con el intent
-        //val proyectoImage = v.fotoImageView
+            fun bind(item : Proyecto, clickListener: (Proyecto) -> Unit) = with(itemView){
+                itemView.findViewById<TextView>(R.id.nombre_project_individual).text = item.nombre
+                this.setOnClickListener{clickListener(item)}
+            }
         }
 
 }
