@@ -10,20 +10,20 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "proyecto")
 data class Proyecto(
     @PrimaryKey
-    val idProyecto: Int,
-    val estado: Boolean,
-    val contraparte: String?,
-    val cupos: Int,
-    val descripcion: String?,
-    val encargado: String?,
-    val fecha_inicio: String?,
-    val fecha_fin: String?,
-    val horario: String?,
-    val nombre: String?,
-    val tipo_horas: String?,
-    val modifiedAt: String?,
-    val modifiedBy: String?,
-    val createdAt: String?
+    val idProyecto: Int = -1,
+    val estado: Boolean = true,
+    val contraparte: String? = "",
+    val cupos: Int = -1,
+    val descripcion: String? = "",
+    val encargado: String? = "",
+    val fecha_inicio: String? = "",
+    val fecha_fin: String? = "",
+    val horario: String? = "",
+    val nombre: String? = "",
+    val tipo_horas: String? = "",
+    val modifiedAt: String? = "",
+    val modifiedBy: String? = "",
+    val createdAt: String? = ""
 ) : Parcelable{
     @RequiresApi(Build.VERSION_CODES.Q)
     constructor(parcel: Parcel) : this(

@@ -4,9 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:id="@+id/cardview_all_projects"
-    app:cardElevation="10dp"
-    app:cardCornerRadius="4dp">
+    android:id="@+id/cardview_all_projects">
 
     <TextView
         android:id="@+id/nombre_project_individual"
@@ -16,8 +14,7 @@
         android:hint="tin marin, guia "
         android:textAllCaps="false"
         android:layout_below="@id/project_image"
-        android:layout_marginStart="@dimen/normal_padding"
-        android:layout_marginEnd="@dimen/normal_padding"
-        android:layout_marginBottom="@dimen/normal_padding"/>
+        android:padding="@dimen/normal_padding"
+        android:layout_marginBottom="@dimen/normal_padding" />
 
 </com.google.android.material.circularreveal.CircularRevealRelativeLayout >

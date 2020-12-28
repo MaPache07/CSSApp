@@ -2,6 +2,7 @@ package com.uca.app_css.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import com.uca.app_css.R
 //import com.bumptech.glide.Glide
 import com.uca.app_css.database.entities.Proyecto
 
-class AllProjectsAdapter(val projects: List<Proyecto>, val clickListener: (Proyecto) -> Unit): RecyclerView.Adapter<AllProjectsAdapter.ProyectoHolder>() {
+class AllProjectsAdapter(var projects: List<Proyecto>, val clickListener: (Proyecto) -> Unit): RecyclerView.Adapter<AllProjectsAdapter.ProyectoHolder>() {
 
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ProyectoHolder  {
@@ -28,6 +29,10 @@ class AllProjectsAdapter(val projects: List<Proyecto>, val clickListener: (Proye
 
     override fun getItemCount(): Int = projects.size
 
+    fun dataChange(listaMatches : List<Proyecto>){
+        projects = listaMatches
+        notifyDataSetChanged()
+    }
 
     inner class ProyectoHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView) {
 

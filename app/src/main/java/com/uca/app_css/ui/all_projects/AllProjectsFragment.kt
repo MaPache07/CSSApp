@@ -35,11 +35,20 @@ class AllProjectsFragment : Fragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         allProjectsViewModel = ViewModelProvider(this).get(ProyectViewModel::class.java)
+        allProjectsViewModel.getAllProyectoAsync()
         viewF = inflater.inflate(R.layout.fragment_all_projects, container, false)
         auth = FirebaseAuth.getInstance()
+        changeList()
         initRecycler(emptyList())
         return viewF
     }
+
+    fun changeList(){
+        allProjectsViewModel.allProyecto.observe(viewLifecycleOwner, Observer { match ->
+            viewAdapter.dataChange(match)
+        })
+    }
+
     fun initRecycler(match : List<Proyecto>){
         viewManager = LinearLayoutManager(context)
         viewAdapter = AllProjectsAdapter(match,{ matchItem: Proyecto-> onClicked(matchItem)})
@@ -49,6 +58,7 @@ class AllProjectsFragment : Fragment() {
             adapter = viewAdapter
         }
     }
+
     fun onClicked(item : Proyecto){
         val extras = Bundle()
         extras.putParcelable(PROJECT_KEY, item)
