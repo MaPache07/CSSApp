@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/cardview_all_projects"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="4dp">
 
     <ImageView
         android:id="@+id/fotoImageView"
@@ -12,11 +15,11 @@
         android:layout_gravity="center_horizontal"/>
 
     <TextView
-        android:id="@+id/nombreTextView"
+        android:id="@+id/nombre_project_individual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Project name"
+        android:hint="TESTTTT "
         android:textAllCaps="true" />
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>
