@@ -23,7 +23,6 @@ import com.uca.app_css.R
 
 class SettingsFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
     private lateinit var mAuth: FirebaseAuth
     private lateinit var pfp: ImageView
     private lateinit var mail: TextView
@@ -32,8 +31,6 @@ class SettingsFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-                ViewModelProvider(this).get(NotificationsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_settings, container, false)
         val logOutBtn:Button = root.findViewById(R.id.logout_btn)
         mAuth = FirebaseAuth.getInstance()
@@ -42,7 +39,7 @@ class SettingsFragment : Fragment() {
 
         logOutBtn.setOnClickListener {
             mAuth.signOut()
-            Toast.makeText(activity,"Cierre de sesión correcto", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity,"Cierre de sesión correcto", Toast.LENGTH_LONG).show()
             val intent = Intent(activity, MainActivity::class.java).apply {
                 putExtra(AlarmClock.EXTRA_MESSAGE, "test")
             }

@@ -15,7 +15,6 @@ import com.uca.app_css.R
 
 class LoginFragment : Fragment() {
 
-    private lateinit var loginViewModel: LoginViewModel
     private lateinit var mAuth: FirebaseAuth
     private lateinit var loginBtn: Button
     private lateinit var emailBox: EditText
@@ -27,16 +26,13 @@ class LoginFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        loginViewModel =
-                ViewModelProvider(this).get(LoginViewModel::class.java)
         val root = inflater.inflate(R.layout.layout_login, container, false)
-
         loginBtn = root.findViewById(R.id.cirLoginButton)
         emailBox = root.findViewById(R.id.editTextEmail)
         pswdBox = root.findViewById(R.id.editTextPassword)
         loginBtn.setOnClickListener{
-            var email: String = emailBox.text.toString()
-            var contra: String = pswdBox.text.toString()
+            val email: String = emailBox.text.toString()
+            val contra: String = pswdBox.text.toString()
 
             if(TextUtils.isEmpty(email)){
                 emailBox.setError("Este campo no puede ir vacío")

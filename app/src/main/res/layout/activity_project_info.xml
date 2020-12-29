@@ -28,13 +28,24 @@
         android:layout_marginEnd="@dimen/normal_padding"
         android:layout_marginBottom="@dimen/normal_padding"/>
     <TextView
+        android:id="@+id/encargado_project_individual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:hint="Encargado enmanuel "
+        android:textAllCaps="true"
+        android:layout_below="@id/nombre_project_individual"
+        android:layout_marginStart="@dimen/normal_padding"
+        android:layout_marginEnd="@dimen/normal_padding"
+        android:layout_marginBottom="@dimen/normal_padding"/>
+    <TextView
         android:id="@+id/tipo_project_individual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"
         android:hint="horas internas "
         android:textAllCaps="true"
-        android:layout_below="@id/nombre_project_individual"
+        android:layout_below="@id/encargado_project_individual"
         android:layout_marginStart="@dimen/normal_padding"
         android:layout_marginEnd="@dimen/normal_padding"
         android:layout_marginBottom="@dimen/normal_padding"/>

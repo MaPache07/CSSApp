@@ -34,7 +34,6 @@ class AllProjectsFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        allProjectsViewModel = ViewModelProvider(this).get(ProyectViewModel::class.java)
         allProjectsViewModel.getAllProyectoAsync()
         viewF = inflater.inflate(R.layout.fragment_all_projects, container, false)
         auth = FirebaseAuth.getInstance()
@@ -44,7 +43,7 @@ class AllProjectsFragment : Fragment() {
     }
 
     fun changeList(){
-        allProjectsViewModel.allProyecto.observe(viewLifecycleOwner, Observer { match ->
+        allProjectsViewModel.allProyecto.observe(viewLifecycleOwner, { match ->
             viewAdapter.dataChange(match)
         })
     }

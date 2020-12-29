@@ -21,8 +21,6 @@ import com.uca.app_css.ui.login.LoginFragment
 
 class MyProjectsFragment : Fragment(){
 
-    private lateinit var myProjectsViewModel: MyProjectsViewModel
-
     private lateinit var mAuth: FirebaseAuth
 
     override fun onCreateView(
@@ -30,8 +28,6 @@ class MyProjectsFragment : Fragment(){
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        myProjectsViewModel =
-                ViewModelProvider(this).get(MyProjectsViewModel::class.java)
         mAuth = FirebaseAuth.getInstance()
         val root = inflater.inflate(R.layout.fragment_my_projects, container, false)
         //val parentFrag = MyProjectsFragment()
