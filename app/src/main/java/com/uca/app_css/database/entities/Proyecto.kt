@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
 data class Proyecto(
     @PrimaryKey
     val idProyecto: Int = -1,
-    val estado: Boolean = true,
+    val estado: Int = -1,
     val contraparte: String? = "",
     val cupos: Int = -1,
     val descripcion: String? = "",
@@ -25,10 +25,9 @@ data class Proyecto(
     val modifiedBy: String? = "",
     val createdAt: String? = ""
 ) : Parcelable{
-    @RequiresApi(Build.VERSION_CODES.Q)
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
-        parcel.readBoolean(),
+        parcel.readInt(),
         parcel.readString(),
         parcel.readInt(),
         parcel.readString(),
@@ -43,10 +42,9 @@ data class Proyecto(
         parcel.readString()
     )
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeInt(idProyecto)
-        dest.writeBoolean(estado)
+        dest.writeInt(estado)
         dest.writeString(contraparte)
         dest.writeInt(cupos)
         dest.writeString(descripcion)
