@@ -28,12 +28,9 @@ class AllProjectsFragment : Fragment() {
     private lateinit var viewAdapter: AllProjectsAdapter
     lateinit var viewF: View
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
+        allProjectsViewModel = ViewModelProvider(this).get(ProyectViewModel::class.java)
         allProjectsViewModel.getAllProyectoAsync()
         viewF = inflater.inflate(R.layout.fragment_all_projects, container, false)
         auth = FirebaseAuth.getInstance()
@@ -50,7 +47,7 @@ class AllProjectsFragment : Fragment() {
 
     fun initRecycler(match : List<Proyecto>){
         viewManager = LinearLayoutManager(context)
-        viewAdapter = AllProjectsAdapter(match,{ matchItem: Proyecto-> onClicked(matchItem)})
+        viewAdapter = AllProjectsAdapter(match) { matchItem: Proyecto -> onClicked(matchItem) }
         viewF.findViewById<RecyclerView>(R.id.recycler).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
