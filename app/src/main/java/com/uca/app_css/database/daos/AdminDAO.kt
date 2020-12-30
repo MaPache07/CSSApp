@@ -16,7 +16,7 @@ interface AdminDAO {
     fun getAllAdmin() : LiveData<List<Admin>>
 
     @Query("SELECT * FROM admin WHERE idAdmin = :id")
-    fun getAdmin(id: Int): Admin
+    fun getAdmin(id: Int): LiveData<Admin>
 
     @Query("DELETE FROM admin")
     suspend fun nukeTable()

@@ -17,7 +17,7 @@ interface CarreraDAO {
     fun getAllCarrera() : LiveData<List<Carrera>>
 
     @Query("SELECT * FROM carrera WHERE idCarrera = :id")
-    fun getCarrera(id: Int): Carrera
+    fun getCarrera(id: Int): LiveData<Carrera>
 
     @Query("SELECT * FROM carrera WHERE idFacultad =:id")
     fun getCarreraWithFacultad(id: Int): LiveData<List<Carrera>>

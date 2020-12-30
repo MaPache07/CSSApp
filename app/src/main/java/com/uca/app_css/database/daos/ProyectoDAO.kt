@@ -24,7 +24,7 @@ interface ProyectoDAO {
     fun getAllProyecto() : LiveData<List<Proyecto>>
 
     @Query("SELECT * FROM proyecto WHERE idProyecto = :id")
-    fun getProyecto(id: Int): Proyecto
+    fun getProyecto(id: Int): LiveData<Proyecto>
 
     @Query("SELECT * FROM proyecto p INNER JOIN proyectoXCarrera pc ON p.idProyecto = pc.idProyecto " +
                 "INNER JOIN carrera c ON pc.idCarrera = c.idCarrera WHERE c.idCarrera = :idCarrera")

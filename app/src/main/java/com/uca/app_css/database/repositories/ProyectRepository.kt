@@ -68,6 +68,8 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
 
     fun getEstudiante(id: Int) = estudianteDAO.getEstudiante(id)
 
+    fun getEstudianteByCarnet(carnet: String) = estudianteDAO.getEstudianteByCarnet(carnet)
+
     fun getFacultad(id: Int) = facultadDAO.getFacultad(id)
 
     fun getPerfil(id: Int) = perfilDAO.getPerfil(id)

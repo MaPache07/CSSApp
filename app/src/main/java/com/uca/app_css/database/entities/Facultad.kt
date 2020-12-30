@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "facultad")
 data class Facultad(
     @PrimaryKey
-    val idFacultad: Int,
-    val nombre: String
+    val idFacultad: Int = -1,
+    val nombre: String = ""
 )

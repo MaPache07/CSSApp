@@ -16,7 +16,7 @@ interface FacultadDAO {
     fun getAllFacultad() : LiveData<List<Facultad>>
 
     @Query("SELECT * FROM facultad WHERE idFacultad = :id")
-    fun getFacultad(id: Int): Facultad
+    fun getFacultad(id: Int): LiveData<Facultad>
 
     @Query("DELETE FROM facultad")
     suspend fun nukeTable()

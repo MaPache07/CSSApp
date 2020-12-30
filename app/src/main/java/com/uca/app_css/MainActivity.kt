@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity() {
         else{
             val carnet = mAuth.currentUser!!.email!!.substring(0, 8)
             projectViewModel.getEstudianteAsync(carnet)
+            projectViewModel.getAllCarreraAsync()
+            projectViewModel.getAllFacultadAsync()
+            projectViewModel.getAllProyectoAsync()
         }
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)

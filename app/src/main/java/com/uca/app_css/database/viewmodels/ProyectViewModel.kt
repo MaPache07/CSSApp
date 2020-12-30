@@ -80,6 +80,8 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
 
     fun getEstudiante(id: Int) = repository.getEstudiante(id)
 
+    fun getEstudianteByCarnet(carnet: String) = repository.getEstudianteByCarnet(carnet)
+
     fun getFacultad(id: Int) = repository.getFacultad(id)
 
     fun getPerfil(id: Int) = repository.getPerfil(id)

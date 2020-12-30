@@ -17,7 +17,7 @@ interface PerfilDAO {
     fun getAllPerfil() : LiveData<List<Perfil>>
 
     @Query("SELECT * FROM perfil WHERE idPerfil = :id")
-    fun getPerfil(id: Int): Perfil
+    fun getPerfil(id: Int): LiveData<Perfil>
 
     @Query("DELETE FROM perfil")
     suspend fun nukeTable()

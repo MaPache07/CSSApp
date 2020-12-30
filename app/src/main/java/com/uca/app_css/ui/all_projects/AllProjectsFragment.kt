@@ -31,7 +31,6 @@ class AllProjectsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
         allProjectsViewModel = ViewModelProvider(this).get(ProyectViewModel::class.java)
-        allProjectsViewModel.getAllProyectoAsync()
         viewF = inflater.inflate(R.layout.fragment_all_projects, container, false)
         auth = FirebaseAuth.getInstance()
         changeList()
