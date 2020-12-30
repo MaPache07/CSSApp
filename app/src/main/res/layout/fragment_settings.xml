@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/log_out"
-        android:textAllCaps="false"
+
         android:layout_marginLeft="@dimen/normal_padding"
         android:layout_marginRight="@dimen/normal_padding"
         android:layout_below="@id/info_major"

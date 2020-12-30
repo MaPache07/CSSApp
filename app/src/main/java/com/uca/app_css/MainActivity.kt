@@ -13,6 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.uca.app_css.database.viewmodels.ProyectViewModel
+import com.uca.app_css.utilities.AppConstants.USER_CARNET
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,8 +32,7 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         else{
-            val carnet = mAuth.currentUser!!.email!!.substring(0, 8)
-            projectViewModel.getEstudianteAsync(carnet)
+            projectViewModel.getEstudianteAsync(USER_CARNET)
             projectViewModel.getAllCarreraAsync()
             projectViewModel.getAllFacultadAsync()
             projectViewModel.getAllProyectoAsync()

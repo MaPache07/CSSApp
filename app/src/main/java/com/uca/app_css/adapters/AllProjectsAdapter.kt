@@ -37,7 +37,7 @@ class AllProjectsAdapter(var projects: List<Proyecto>, val clickListener: (Proye
     inner class ProyectoHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView) {
 
             fun bind(item : Proyecto, clickListener: (Proyecto) -> Unit) = with(itemView){
-                itemView.findViewById<TextView>(R.id.nombre_project_individual).text = item.nombre
+                itemView.findViewById<TextView>(R.id.item_project_name).text = item.nombre
                 this.setOnClickListener{clickListener(item)}
             }
         }
