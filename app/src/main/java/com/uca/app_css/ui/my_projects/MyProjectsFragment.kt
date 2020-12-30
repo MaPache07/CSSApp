@@ -7,16 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.findFragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.uca.app_css.R
-import com.uca.app_css.ui.all_projects.AllProjectsFragment
-import com.uca.app_css.ui.login.LoginFragment
 
 
 class MyProjectsFragment : Fragment(){

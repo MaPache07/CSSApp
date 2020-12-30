@@ -1,12 +1,7 @@
 package com.uca.app_css.ui.settings
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.AlarmClock
-import android.provider.MediaStore
-import android.provider.MediaStore.Images.Media.getBitmap
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.uca.app_css.MainActivity
 import com.uca.app_css.R
+import com.uca.app_css.utilities.AppConstants.LOGOUT
 
 class SettingsFragment : Fragment() {
 
@@ -44,7 +40,7 @@ class SettingsFragment : Fragment() {
 
     val clickListener = View.OnClickListener {
         mAuth.signOut()
-        Toast.makeText(activity,"Cierre de sesión correcto", Toast.LENGTH_LONG).show()
+        Toast.makeText(activity, LOGOUT, Toast.LENGTH_LONG).show()
         val intent = Intent(activity, MainActivity::class.java)
         startActivity(intent)
         activity?.finish()

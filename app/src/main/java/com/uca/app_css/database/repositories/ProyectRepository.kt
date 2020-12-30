@@ -82,6 +82,8 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
 
     fun getPerfilWithEstudiante(idEstudiante: Int) = estudianteDAO.getPerfilWithEstudiante(idEstudiante)
 
+    fun getCarreraWithEstudiante(idEstudiante: Int) = estudianteDAO.getCarreraWithEstudiante(idEstudiante)
+
     fun getProyectoWithCarrera(idCarrera: Int) = proyectoDAO.getProyectoWithCarrera(idCarrera)
 
     fun getProyectoWithEstudiante(idEstudiante: Int) = proyectoDAO.getProyectoWithEstudiante(idEstudiante)
@@ -89,66 +91,78 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
     //GETFireBase
 
     suspend fun getAllFacultadAsync(): List<Facultad>{
-        var facultades = listOf<Facultad>()
+        val facultades = mutableListOf<Facultad>()
         db.collection("Facultad").get().addOnSuccessListener {documents ->
             for(document in documents){
                 val facultad = document.toObject(Facultad::class.java)
-                facultades += facultad
+                facultades.add(facultad)
             }
         }.await()
         return facultades
     }
 
     suspend fun getAllCarreraAsync(): List<Carrera>{
-        var carreras = listOf<Carrera>()
+        val carreras = mutableListOf<Carrera>()
         db.collection("Carrera").get().addOnSuccessListener {documents ->
             for(document in documents){
                 val carrera = document.toObject(Carrera::class.java)
-                carreras += carrera
+                carreras.add(carrera)
             }
         }.await()
         return carreras
     }
 
+    suspend fun getEstudianteAsync(carnet: String): Estudiante? {
+        var estudiante: Estudiante? = null
+        db.collection("Estudiante").whereEqualTo("carnet", carnet).get().addOnSuccessListener {documents ->
+            if(documents != null){
+                for(document in documents){
+                    estudiante = document.toObject(Estudiante::class.java)
+                }
+            }
+        }.await()
+        return estudiante
+    }
+
     suspend fun getAllProyectoAsync(): List<Proyecto>{
-        var proyects = listOf<Proyecto>()
+        val proyects = mutableListOf<Proyecto>()
         db.collection("Proyecto").get().addOnSuccessListener {documents ->
             for(document in documents){
                 val proyect = document.toObject(Proyecto::class.java)
-                proyects += proyect
+                proyects.add(proyect)
             }
         }.await()
         return proyects
     }
 
     suspend fun getAllPerfilAsync(): List<Perfil>{
-        var perfiles = listOf<Perfil>()
+        val perfiles = mutableListOf<Perfil>()
         db.collection("Perfil").get().addOnSuccessListener {documents ->
             for(document in documents){
                 val perfil = document.toObject(Perfil::class.java)
-                perfiles += perfil
+                perfiles.add(perfil)
             }
         }.await()
         return perfiles
     }
 
     suspend fun getAllProyectoXCarreraAsync(): List<ProyectoXCarrera>{
-        var proxCars = listOf<ProyectoXCarrera>()
+        val proxCars = mutableListOf<ProyectoXCarrera>()
         db.collection("ProyectoxCarrera").get().addOnSuccessListener {documents ->
             for(document in documents){
                 val proxCar = document.toObject(ProyectoXCarrera::class.java)
-                proxCars += proxCar
+                proxCars.add(proxCar)
             }
         }.await()
         return proxCars
     }
 
     suspend fun getAllAdminAsync(): List<Admin>{
-        var admins = listOf<Admin>()
+        val admins = mutableListOf<Admin>()
         db.collection("Admin").get().addOnSuccessListener {documents ->
             for(document in documents){
                 val admin = document.toObject(Admin::class.java)
-                admins += admin
+                admins.add(admin)
             }
         }.await()
         return admins

@@ -94,6 +94,8 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
 
     fun getPerfilWithEstudiante(idEstudiante: Int) = repository.getPerfilWithEstudiante(idEstudiante)
 
+    fun getCarreraWithEstudiante(idEstudiante: Int) = repository.getCarreraWithEstudiante(idEstudiante)
+
     fun getProyectoWithCarrera(idCarrera: Int) = repository.getProyectoWithCarrera(idCarrera)
 
     fun getProyectoWithEstudiante(idEstudiante: Int) = repository.getProyectoWithEstudiante(idEstudiante)
@@ -120,6 +122,14 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
         }
     }
 
+    fun getEstudianteAsync(carnet: String) = viewModelScope.launch {
+        val response = repository.getEstudianteAsync(carnet)
+        if(response != null){
+            this@ProyectViewModel.nukeEstudiante()
+            this@ProyectViewModel.insertEstudiante(response)
+        }
+    }
+
     fun getAllProyectoAsync() = viewModelScope.launch {
         val response = repository.getAllProyectoAsync()
         if(response.isNotEmpty()){
@@ -129,8 +139,6 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
             }
         }
     }
-
-
 
     fun getAllPerfilAsync() = viewModelScope.launch {
         val response = repository.getAllPerfilAsync()
