@@ -137,6 +137,13 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
             setIdEstudiante(response.idEstudiante)
             this@ProyectViewModel.nukeEstudiante()
             this@ProyectViewModel.insertEstudiante(response)
+            val responseProEst = repository.getProyectoXEstudianteAsync()
+            if(responseProEst.isNotEmpty()){
+                this@ProyectViewModel.nukeProyectoXEstudiante()
+                responseProEst.forEach {
+                    this@ProyectViewModel.insertProyectoXEstudiante(it)
+                }
+            }
         }
     }
 
@@ -166,16 +173,6 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
             this@ProyectViewModel.nukeProyectoXCarrera()
             response.forEach {
                 this@ProyectViewModel.insertProyectoXCarrera(it)
-            }
-        }
-    }
-
-    fun getAllProyectoXEstudianteAsync() = viewModelScope.launch {
-        val response = repository.getAllProyectoXEstudianteAsync()
-        if(response.isNotEmpty()){
-            this@ProyectViewModel.nukeProyectoXEstudiante()
-            response.forEach {
-                this@ProyectViewModel.insertProyectoXEstudiante(it)
             }
         }
     }

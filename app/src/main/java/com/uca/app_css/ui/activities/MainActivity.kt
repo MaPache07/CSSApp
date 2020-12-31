@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
                 projectViewModel.getAllFacultadAsync()
                 projectViewModel.getAllProyectoAsync()
                 projectViewModel.getAllPerfilAsync()
-                projectViewModel.getAllProyectoXEstudianteAsync()
                 projectViewModel.getAllProyectoXCarreraAsync()
             }
         }

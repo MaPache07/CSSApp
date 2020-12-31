@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.uca.app_css.database.daos.*
 import com.uca.app_css.database.entities.*
+import com.uca.app_css.utilities.AppConstants.getIdEstudiante
 import kotlinx.coroutines.tasks.await
 
 class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: CarreraDAO, private val estudianteDAO: EstudianteDAO,
@@ -164,9 +165,9 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
         return proxCars
     }
 
-    suspend fun getAllProyectoXEstudianteAsync(): List<ProyectoXEstudiante>{
+    suspend fun getProyectoXEstudianteAsync(): List<ProyectoXEstudiante>{
         val proxEsts = mutableListOf<ProyectoXEstudiante>()
-        db.collection("ProyectoxEstudiante").get().addOnSuccessListener {documents ->
+        db.collection("ProyectoxEstudiante").whereEqualTo("idEstudiante", getIdEstudiante()).get().addOnSuccessListener {documents ->
             for(document in documents){
                 val proxEst = document.toObject(ProyectoXEstudiante::class.java)
                 proxEsts.add(proxEst)
