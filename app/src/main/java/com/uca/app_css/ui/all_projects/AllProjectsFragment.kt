@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +15,7 @@ import com.uca.app_css.R
 import com.uca.app_css.adapters.AllProjectsAdapter
 import com.uca.app_css.database.entities.Proyecto
 import com.uca.app_css.database.viewmodels.ProyectViewModel
+import com.uca.app_css.utilities.AppConstants
 import com.uca.app_css.utilities.AppConstants.PROJECT_KEY
 
 class AllProjectsFragment : Fragment() {
@@ -57,6 +55,7 @@ class AllProjectsFragment : Fragment() {
     fun onClicked(item : Proyecto){
         val extras = Bundle()
         extras.putParcelable(PROJECT_KEY, item)
+        extras.putBoolean(AppConstants.FLAG_APPLY, false)
         startActivity(Intent(context, ProjectInfoActivity::class.java).putExtras(extras))
     }
 }

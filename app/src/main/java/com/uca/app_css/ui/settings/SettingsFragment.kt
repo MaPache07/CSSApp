@@ -14,10 +14,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.uca.app_css.MainActivity
 import com.uca.app_css.R
-import com.uca.app_css.database.entities.Estudiante
 import com.uca.app_css.database.viewmodels.ProyectViewModel
 import com.uca.app_css.utilities.AppConstants.LOGOUT
-import com.uca.app_css.utilities.AppConstants.USER_CARNET
+import com.uca.app_css.utilities.AppConstants.getUserCarnet
 
 class SettingsFragment : Fragment() {
 
@@ -48,7 +47,7 @@ class SettingsFragment : Fragment() {
         logoutBtn.setOnClickListener(clickListener)
 
         mail.text = mAuth.currentUser!!.email
-        projectsViewModel.getEstudianteByCarnet(USER_CARNET).observe(viewLifecycleOwner, {
+        projectsViewModel.getEstudianteByCarnet(getUserCarnet()).observe(viewLifecycleOwner, {
             val nombres = it.nombres + " " + it.apellidos
             names.text = nombres
             projectsViewModel.getCarrera(it.idCarrera).observe(viewLifecycleOwner, {

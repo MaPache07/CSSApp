@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.uca.app_css.database.daos.*
 import com.uca.app_css.database.entities.*
-import com.uca.app_css.utilities.AppConstants.USER_CARNET
 import kotlinx.coroutines.tasks.await
 
 class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: CarreraDAO, private val estudianteDAO: EstudianteDAO,
@@ -90,6 +89,8 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
 
     fun getProyectoWithCarrera(idCarrera: Int) = proyectoXCarreraDAO.getProyectoWithCarrera(idCarrera)
 
+    fun getCarreraWithProyecto(idProyecto: Int) = proyectoXCarreraDAO.getCarreraWithProyecto(idProyecto)
+
     fun getEstudianteWithProyecto(idProyecto: Int) = proyectoXEstudianteDAO.getEstudianteWithProyecto(idProyecto)
 
     fun getProyectoWithEstudiante(idEstudiante: Int) = proyectoXEstudianteDAO.getProyectoWithEstudiante(idEstudiante)
@@ -161,6 +162,17 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
             }
         }.await()
         return proxCars
+    }
+
+    suspend fun getAllProyectoXEstudianteAsync(): List<ProyectoXEstudiante>{
+        val proxEsts = mutableListOf<ProyectoXEstudiante>()
+        db.collection("ProyectoxEstudiante").get().addOnSuccessListener {documents ->
+            for(document in documents){
+                val proxEst = document.toObject(ProyectoXEstudiante::class.java)
+                proxEsts.add(proxEst)
+            }
+        }.await()
+        return proxEsts
     }
 
     suspend fun getAllAdminAsync(): List<Admin>{

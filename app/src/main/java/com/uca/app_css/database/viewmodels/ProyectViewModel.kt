@@ -109,6 +109,8 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
 
     fun getProyectoWithCarrera(idCarrera: Int) = repository.getProyectoWithCarrera(idCarrera)
 
+    fun getCarreraWithProyecto(idProyecto: Int) = repository.getCarreraWithProyecto(idProyecto)
+
     fun getProyectoWithEstudiante(idEstudiante: Int) = repository.getProyectoWithEstudiante(idEstudiante)
 
     //GETFireBase
@@ -168,6 +170,16 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
             this@ProyectViewModel.nukeProyectoXCarrera()
             response.forEach {
                 this@ProyectViewModel.insertProyectoXCarrera(it)
+            }
+        }
+    }
+
+    fun getAllProyectoXEstudianteAsync() = viewModelScope.launch {
+        val response = repository.getAllProyectoXEstudianteAsync()
+        if(response.isNotEmpty()){
+            this@ProyectViewModel.nukeProyectoXEstudiante()
+            response.forEach {
+                this@ProyectViewModel.insertProyectoXEstudiante(it)
             }
         }
     }

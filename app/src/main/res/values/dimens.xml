@@ -11,6 +11,7 @@
 
     <dimen name="signup_text_margin_top">10dp</dimen>
     <dimen name="normal_padding">10dp</dimen>
+    <dimen name="big_padding">15dp</dimen>
     <dimen name="normal_text_size">20sp</dimen>
     <dimen name="big_text_size">24sp</dimen>
     <dimen name="super_big_text_size">30sp</dimen>

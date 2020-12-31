@@ -2,17 +2,11 @@ package com.uca.app_css.ui.my_projects
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,8 +17,8 @@ import com.uca.app_css.adapters.AllProjectsAdapter
 import com.uca.app_css.database.entities.Proyecto
 import com.uca.app_css.database.viewmodels.ProyectViewModel
 import com.uca.app_css.utilities.AppConstants
+import com.uca.app_css.utilities.AppConstants.FLAG_APPLY
 import com.uca.app_css.utilities.AppConstants.getIdEstudiante
-
 
 class MyProjectsFragment : Fragment(){
 
@@ -60,7 +54,7 @@ class MyProjectsFragment : Fragment(){
     fun initRecylcer(match: List<Proyecto>){
         viewManager = LinearLayoutManager(context)
         viewAdapter = AllProjectsAdapter(match, false, viewLifecycleOwner, this) {matchItem: Proyecto -> onClicked(matchItem)}
-        recyclerView = viewF.findViewById<RecyclerView>(R.id.recycler_my_projects)
+        recyclerView = viewF.findViewById(R.id.recycler_my_projects)
         recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -71,6 +65,7 @@ class MyProjectsFragment : Fragment(){
     fun onClicked(item: Proyecto){
         val extras = Bundle()
         extras.putParcelable(AppConstants.PROJECT_KEY, item)
+        extras.putBoolean(FLAG_APPLY, true)
         startActivity(Intent(context, ProjectInfoActivity::class.java).putExtras(extras))
     }
 }

@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "proyectoXCarrera")
 data class ProyectoXCarrera(
     @PrimaryKey
-    val idProyectoCarrera: Int,
-    val idProyecto: Int,
-    val idCarrera: Int,
-    val idPerfil: Int
+    val idProyectoCarrera: Int = -1,
+    val idProyecto: Int = -1,
+    val idCarrera: Int = -1,
+    val idPerfil: Int = -1
 )

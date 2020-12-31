@@ -16,9 +16,10 @@ import com.uca.app_css.database.entities.Proyecto
 import com.uca.app_css.database.entities.ProyectoXEstudiante
 import com.uca.app_css.database.viewmodels.ProyectViewModel
 import com.uca.app_css.utilities.AppConstants
+import com.uca.app_css.utilities.AppConstants.FLAG_APPLY
 import com.uca.app_css.utilities.AppConstants.PROJECT_KEY
-import com.uca.app_css.utilities.AppConstants.USER_CARNET
 import com.uca.app_css.utilities.AppConstants.getIdEstudiante
+import com.uca.app_css.utilities.AppConstants.getUserCarnet
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,9 +31,11 @@ class ProjectInfoActivity : AppCompatActivity() {
     private lateinit var descriptionTxt: TextView
     private lateinit var durationTxt: TextView
     private lateinit var cuposTxt: TextView
+    private lateinit var majorTxt: TextView
     private lateinit var applyBtn: Button
     private lateinit var projectViewModel: ProyectViewModel
     private lateinit var proyecto: Proyecto
+    private var flagApply: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -43,6 +46,7 @@ class ProjectInfoActivity : AppCompatActivity() {
 
     fun bindData(){
         proyecto = intent.extras!!.getParcelable(PROJECT_KEY)!!
+        flagApply = intent.extras!!.getBoolean(FLAG_APPLY)
         projectViewModel = ViewModelProvider(this).get(ProyectViewModel::class.java)
 
         nameTxt = findViewById(R.id.project_name)
@@ -51,8 +55,11 @@ class ProjectInfoActivity : AppCompatActivity() {
         typeTxt = findViewById(R.id.project_type)
         cuposTxt = findViewById(R.id.project_cupos)
         descriptionTxt = findViewById(R.id.project_description)
+        majorTxt = findViewById(R.id.project_major)
         applyBtn = findViewById(R.id.apply_btn)
-        applyBtn.setOnClickListener(clickListener)
+
+        if(flagApply) applyBtn.visibility = View.INVISIBLE
+        else applyBtn.setOnClickListener(clickListener)
 
         nameTxt.text = proyecto.nombre
         onChargeTxt.text = proyecto.encargado
@@ -60,6 +67,16 @@ class ProjectInfoActivity : AppCompatActivity() {
         typeTxt.text = "Tipo: ${proyecto.tipo_horas}"
         cuposTxt.text = "Cupos: ${proyecto.cupos}"
         descriptionTxt.text = proyecto.descripcion
+
+        projectViewModel.getCarreraWithProyecto(proyecto.idProyecto).observe(this, {
+            if(it == null){
+                majorTxt.text = "Carrera: Todas las carreras"
+            }
+            else{
+                Log.d("HOLA", it.nombre)
+                majorTxt.text = "Carrera: ${it.nombre}"
+            }
+        })
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -72,7 +89,7 @@ class ProjectInfoActivity : AppCompatActivity() {
             var flagApplied = true
             projectViewModel.getProyectoXEstudianteById(proyecto.idProyecto, getIdEstudiante()).observe(this, {
                 if(it == null){
-                    projectViewModel.insertProyectoXEstudiante(ProyectoXEstudiante(0, proyecto.idProyecto, getIdEstudiante(), date, 0, date, USER_CARNET))
+                    projectViewModel.insertProyectoXEstudiante(ProyectoXEstudiante(0, proyecto.idProyecto, getIdEstudiante(), date, 0, date, getUserCarnet()))
                     flagNotApplied = false
                     projectViewModel.getProyectoXEstudianteById(proyecto.idProyecto, getIdEstudiante()).observe(this, {
                         if(it != null && flagApplied){
@@ -92,10 +109,5 @@ class ProjectInfoActivity : AppCompatActivity() {
         else{
             Toast.makeText(this, AppConstants.NOTAPPLIED, Toast.LENGTH_SHORT).show()
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
     }
 }

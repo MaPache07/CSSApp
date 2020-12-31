@@ -15,7 +15,6 @@ import com.uca.app_css.utilities.AppConstants.STATE_ACCEPTED
 import com.uca.app_css.utilities.AppConstants.STATE_PENDING
 import com.uca.app_css.utilities.AppConstants.STATE_REJECTED
 import com.uca.app_css.utilities.AppConstants.getIdEstudiante
-import org.w3c.dom.Text
 
 class AllProjectsAdapter(var projects: List<Proyecto>, val flag: Boolean, val lifecycleOwner: LifecycleOwner, val fragment: Fragment, val clickListener: (Proyecto) -> Unit): RecyclerView.Adapter<AllProjectsAdapter.ProyectoHolder>() {
 
