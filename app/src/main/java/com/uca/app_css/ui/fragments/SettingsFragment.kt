@@ -1,4 +1,4 @@
-package com.uca.app_css.ui.settings
+package com.uca.app_css.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.uca.app_css.MainActivity
+import com.uca.app_css.ui.activities.MainActivity
 import com.uca.app_css.R
 import com.uca.app_css.database.viewmodels.ProyectViewModel
 import com.uca.app_css.utilities.AppConstants.LOGOUT

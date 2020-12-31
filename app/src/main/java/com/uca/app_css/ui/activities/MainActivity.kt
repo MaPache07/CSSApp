@@ -1,4 +1,4 @@
-package com.uca.app_css
+package com.uca.app_css.ui.activities
 
 import android.content.Context
 import android.content.Intent
@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.uca.app_css.R
 import com.uca.app_css.database.viewmodels.ProyectViewModel
 import com.uca.app_css.utilities.AppConstants.getUserCarnet
 import com.uca.app_css.utilities.AppConstants.setUserCarnet

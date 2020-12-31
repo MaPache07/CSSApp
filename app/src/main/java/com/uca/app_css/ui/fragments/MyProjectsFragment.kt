@@ -1,4 +1,4 @@
-package com.uca.app_css.ui.my_projects
+package com.uca.app_css.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.uca.app_css.ProjectInfoActivity
+import com.uca.app_css.ui.activities.ProjectInfoActivity
 import com.uca.app_css.R
 import com.uca.app_css.adapters.AllProjectsAdapter
 import com.uca.app_css.database.entities.Proyecto
@@ -30,7 +30,7 @@ class MyProjectsFragment : Fragment(){
     private lateinit var emptyTxt: TextView
     lateinit var viewF: View
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
         viewF = inflater.inflate(R.layout.fragment_my_projects, container, false)
         projectsViewModel = ViewModelProvider(this).get(ProyectViewModel::class.java)

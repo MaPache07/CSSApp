@@ -1,4 +1,4 @@
-package com.uca.app_css
+package com.uca.app_css.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.uca.app_css.R
 import com.uca.app_css.database.entities.Proyecto
 import com.uca.app_css.database.entities.ProyectoXEstudiante
 import com.uca.app_css.database.viewmodels.ProyectViewModel

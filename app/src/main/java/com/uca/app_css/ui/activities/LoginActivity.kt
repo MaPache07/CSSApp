@@ -1,4 +1,4 @@
-package com.uca.app_css
+package com.uca.app_css.ui.activities
 
 import android.content.Context
 import android.content.Intent
@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.uca.app_css.R
 import com.uca.app_css.utilities.AppConstants.LOGIN
 import com.uca.app_css.utilities.AppConstants.MAILPASSINCORRECT
 import com.uca.app_css.utilities.AppConstants.NOTEMPTY
