@@ -68,28 +68,34 @@ class ProjectInfoActivity : AppCompatActivity() {
         val activeNetwork = cm.activeNetworkInfo
         if(activeNetwork != null && activeNetwork.isConnected){
             val date = SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().time)
-            var cont = 0
+            var flagNotApplied = true
+            var flagApplied = true
             projectViewModel.getProyectoXEstudianteById(proyecto.idProyecto, getIdEstudiante()).observe(this, {
                 if(it == null){
                     projectViewModel.insertProyectoXEstudiante(ProyectoXEstudiante(0, proyecto.idProyecto, getIdEstudiante(), date, 0, date, USER_CARNET))
+                    flagNotApplied = false
                     projectViewModel.getProyectoXEstudianteById(proyecto.idProyecto, getIdEstudiante()).observe(this, {
-                        if(it != null){
+                        if(it != null && flagApplied){
                             projectViewModel.postProyectoXEstudiante(it)
-                            Toast.makeText(this, AppConstants.APPLIED, Toast.LENGTH_LONG).show()
+                            flagApplied = false
+                            Toast.makeText(this, AppConstants.APPLIED, Toast.LENGTH_SHORT).show()
                             return@observe
                         }
                     })
                 }
-                else{
-                    Toast.makeText(this, AppConstants.NOTAPPLIEDAGAIN, Toast.LENGTH_LONG).show()
+                else if(flagNotApplied){
+                    Toast.makeText(this, AppConstants.NOTAPPLIEDAGAIN, Toast.LENGTH_SHORT).show()
                 }
-                cont += 1
-                Log.d("HOLA", cont.toString())
                 return@observe
             })
         }
         else{
-            Toast.makeText(this, AppConstants.NOTAPPLIED, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, AppConstants.NOTAPPLIED, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }
