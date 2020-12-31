@@ -17,6 +17,8 @@ public abstract class RoomDB : RoomDatabase() {
     abstract fun facultadDao(): FacultadDAO
     abstract fun perfilDao(): PerfilDAO
     abstract fun proyectoDao(): ProyectoDAO
+    abstract fun proyectoXCarreraDao(): ProyectoXCarreraDAO
+    abstract fun proyectoXEstudianteDao(): ProyectoXEstudianteDAO
 
     companion object{
 

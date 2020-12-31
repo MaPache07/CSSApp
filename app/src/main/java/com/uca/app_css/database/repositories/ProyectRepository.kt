@@ -5,10 +5,12 @@ import androidx.lifecycle.LiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.uca.app_css.database.daos.*
 import com.uca.app_css.database.entities.*
+import com.uca.app_css.utilities.AppConstants.USER_CARNET
 import kotlinx.coroutines.tasks.await
 
 class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: CarreraDAO, private val estudianteDAO: EstudianteDAO,
-                        private val facultadDAO: FacultadDAO, private val perfilDAO: PerfilDAO, private val proyectoDAO: ProyectoDAO) {
+                        private val facultadDAO: FacultadDAO, private val perfilDAO: PerfilDAO, private val proyectoDAO: ProyectoDAO,
+                        private val proyectoXCarreraDAO: ProyectoXCarreraDAO, private val proyectoXEstudianteDAO: ProyectoXEstudianteDAO) {
 
     val allAdmin: LiveData<List<Admin>> = adminDAO.getAllAdmin()
     val allCarrera: LiveData<List<Carrera>> = carreraDAO.getAllCarrera()
@@ -52,12 +54,12 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
 
     @WorkerThread
     suspend fun insertProyectoXCarrera(proyectoXCarrera: ProyectoXCarrera){
-        proyectoDAO.insertProyectoXCarrera(proyectoXCarrera)
+        proyectoXCarreraDAO.insertProyectoXCarrera(proyectoXCarrera)
     }
 
     @WorkerThread
     suspend fun insertProyectoXEstudiante(proyectoXEstudiante: ProyectoXEstudiante){
-        proyectoDAO.insertProyectoXEstudiante(proyectoXEstudiante)
+        proyectoXEstudianteDAO.insertProyectoXEstudiante(proyectoXEstudiante)
     }
 
     //GETs
@@ -76,19 +78,21 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
 
     fun getProyecto(id: Int) = proyectoDAO.getProyecto(id)
 
+    fun getProyectoXEstudianteById(idProyecto: Int, idEstudiante: Int) = proyectoXEstudianteDAO.getProyectoXEstudianteById(idProyecto, idEstudiante)
+
     //QUERYs
 
     fun getCarreraWithFacultad(idFacultad: Int) = carreraDAO.getCarreraWithFacultad(idFacultad)
-
-    fun getEstudianteWithProyecto(idProyecto: Int) = estudianteDAO.getEstudianteWithProyecto(idProyecto)
 
     fun getPerfilWithEstudiante(idEstudiante: Int) = estudianteDAO.getPerfilWithEstudiante(idEstudiante)
 
     fun getCarreraWithEstudiante(idEstudiante: Int) = estudianteDAO.getCarreraWithEstudiante(idEstudiante)
 
-    fun getProyectoWithCarrera(idCarrera: Int) = proyectoDAO.getProyectoWithCarrera(idCarrera)
+    fun getProyectoWithCarrera(idCarrera: Int) = proyectoXCarreraDAO.getProyectoWithCarrera(idCarrera)
 
-    fun getProyectoWithEstudiante(idEstudiante: Int) = proyectoDAO.getProyectoWithEstudiante(idEstudiante)
+    fun getEstudianteWithProyecto(idProyecto: Int) = proyectoXEstudianteDAO.getEstudianteWithProyecto(idProyecto)
+
+    fun getProyectoWithEstudiante(idEstudiante: Int) = proyectoXEstudianteDAO.getProyectoWithEstudiante(idEstudiante)
 
     //GETFireBase
 
@@ -170,6 +174,10 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
         return admins
     }
 
+    fun postProyectoXEstudiante(proEst: ProyectoXEstudiante){
+        db.collection("ProyectoxEstudiante").add(proEst)
+    }
+
     //NukeTables
 
     @WorkerThread
@@ -204,11 +212,11 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
 
     @WorkerThread
     suspend fun nukeProyectoXCarrera(){
-        return proyectoDAO.nukeProyectoXCarrera()
+        return proyectoXCarreraDAO.nukeProyectoXCarrera()
     }
 
     @WorkerThread
     suspend fun nukeProyectoXEstudiante(){
-        return proyectoDAO.nukeProyectoXEstudiante()
+        return proyectoXEstudianteDAO.nukeProyectoXEstudiante()
     }
 }

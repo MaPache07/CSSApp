@@ -9,7 +9,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.uca.app_css.database.viewmodels.ProyectViewModel
+import com.uca.app_css.utilities.AppConstants
 import com.uca.app_css.utilities.AppConstants.LOGIN
 import com.uca.app_css.utilities.AppConstants.MAILPASSINCORRECT
 import com.uca.app_css.utilities.AppConstants.NOTEMPTY
@@ -33,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun initData(){
         mAuth = FirebaseAuth.getInstance()
+
         loginBtn = findViewById(R.id.cirLoginButton)
         emailBox = findViewById(R.id.editTextEmail)
         pswdBox = findViewById(R.id.editTextPassword)

@@ -13,7 +13,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.uca.app_css.database.viewmodels.ProyectViewModel
+import com.uca.app_css.utilities.AppConstants
 import com.uca.app_css.utilities.AppConstants.USER_CARNET
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 

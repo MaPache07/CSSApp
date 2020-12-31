@@ -1,16 +1,18 @@
 package com.uca.app_css.database.entities
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "proyectoXEstudiante")
 data class ProyectoXEstudiante(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "idProyectoEstudiante")
     val idProyectoXEstudiante: Int,
     val idProyecto: Int,
     val idEstudiante: Int,
     val appliedAt: String,
-    val estado: Boolean,
+    val estado: Int,
     val modifiedAt: String,
     val modifiedBy: String
 )

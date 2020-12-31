@@ -1,5 +1,6 @@
 package com.uca.app_css.database.viewmodels
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -8,8 +9,12 @@ import androidx.lifecycle.viewModelScope
 import com.uca.app_css.database.RoomDB
 import com.uca.app_css.database.entities.*
 import com.uca.app_css.database.repositories.ProyectRepository
+import com.uca.app_css.utilities.AppConstants
+import com.uca.app_css.utilities.AppConstants.setIdEstudiante
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
 
@@ -28,8 +33,10 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
         val facultadDao = RoomDB.getDatabase(app).facultadDao()
         val perfilDao = RoomDB.getDatabase(app).perfilDao()
         val proyectoDao = RoomDB.getDatabase(app).proyectoDao()
+        val proyectoXCarreraDAO = RoomDB.getDatabase(app).proyectoXCarreraDao()
+        val proyectoXEstudianteDAO = RoomDB.getDatabase(app).proyectoXEstudianteDao()
 
-        repository = ProyectRepository(adminDao, carreraDao, estudianteDao, facultadDao, perfilDao, proyectoDao)
+        repository = ProyectRepository(adminDao, carreraDao, estudianteDao, facultadDao, perfilDao, proyectoDao, proyectoXCarreraDAO, proyectoXEstudianteDAO)
         allAdmin = repository.allAdmin
         allCarrera = repository.allCarrera
         allEstudiante = repository.allEstudiante
@@ -88,6 +95,8 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
 
     fun getProyecto(id: Int) = repository.getProyecto(id)
 
+    fun getProyectoXEstudianteById(idProyecto: Int, idEstudiante: Int) = repository.getProyectoXEstudianteById(idProyecto, idEstudiante)
+
     //QUERYs
 
     fun getCarreraWithFacultad(idFacultad: Int) = repository.getCarreraWithFacultad(idFacultad)
@@ -127,6 +136,7 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
     fun getEstudianteAsync(carnet: String) = viewModelScope.launch {
         val response = repository.getEstudianteAsync(carnet)
         if(response != null){
+            setIdEstudiante(response.idEstudiante)
             this@ProyectViewModel.nukeEstudiante()
             this@ProyectViewModel.insertEstudiante(response)
         }
@@ -170,6 +180,10 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
                 this@ProyectViewModel.insertAdmin(it)
             }
         }
+    }
+
+    fun postProyectoXEstudiante(proEst: ProyectoXEstudiante) = viewModelScope.launch {
+        repository.postProyectoXEstudiante(proEst)
     }
 
     //NukeTables
