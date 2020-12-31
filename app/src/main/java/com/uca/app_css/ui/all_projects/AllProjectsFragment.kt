@@ -30,8 +30,8 @@ class AllProjectsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        allProjectsViewModel = ViewModelProvider(this).get(ProyectViewModel::class.java)
         viewF = inflater.inflate(R.layout.fragment_all_projects, container, false)
+        allProjectsViewModel = ViewModelProvider(this).get(ProyectViewModel::class.java)
         auth = FirebaseAuth.getInstance()
         changeList()
         initRecycler(emptyList())
@@ -46,7 +46,7 @@ class AllProjectsFragment : Fragment() {
 
     fun initRecycler(match : List<Proyecto>){
         viewManager = LinearLayoutManager(context)
-        viewAdapter = AllProjectsAdapter(match) { matchItem: Proyecto -> onClicked(matchItem) }
+        viewAdapter = AllProjectsAdapter(match, true, viewLifecycleOwner, this) {matchItem: Proyecto -> onClicked(matchItem)}
         viewF.findViewById<RecyclerView>(R.id.recycler).apply {
             setHasFixedSize(true)
             layoutManager = viewManager

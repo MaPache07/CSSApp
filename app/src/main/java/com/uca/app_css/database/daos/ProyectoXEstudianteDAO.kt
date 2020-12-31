@@ -21,7 +21,7 @@ interface ProyectoXEstudianteDAO {
             "INNER JOIN proyecto p ON pe.idProyecto = p.idProyecto WHERE p.idProyecto = :idProyecto")
     fun getEstudianteWithProyecto(idProyecto: Int): LiveData<List<Estudiante>>
 
-    @Query("SELECT * FROM proyecto p INNER JOIN proyectoXEstudiante pe ON pe.idEstudiante = e.idEstudiante " +
+    @Query("SELECT * FROM proyecto p INNER JOIN proyectoXEstudiante pe ON p.idProyecto = pe.idProyecto " +
             "INNER JOIN estudiante e ON pe.idEstudiante = e.idEstudiante WHERE e.idEstudiante = :idEstudiante")
     fun getProyectoWithEstudiante(idEstudiante: Int): LiveData<List<Proyecto>>
 

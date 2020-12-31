@@ -1,35 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.my_projects.MyProjectsFragment">
-
     <TextView
-        android:id="@+id/text_home"
+        android:id="@+id/text_empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/logout_btn"
+        android:text="@string/not_applied_projects"
+        android:textColor="@color/black"
+        android:textSize="@dimen/big_text_size"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/normal_padding"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_my_projects"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="+ Agregar proyectos"
-        android:textAllCaps="false"
-        android:textSize="@dimen/small_text_size"
-        android:layout_marginLeft="@dimen/normal_padding"
-        android:layout_marginRight="@dimen/normal_padding"
-        tools:ignore="MissingConstraints">
-    </Button>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:visibility="gone"/>
+</RelativeLayout>

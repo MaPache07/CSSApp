@@ -11,7 +11,11 @@ object AppConstants {
     val APPLIED = "Se ha aplicado correctamente al proyecto"
     val NOTAPPLIED = "No se ha podido aplicar al proyecto"
     val NOTAPPLIEDAGAIN = "Ya ha aplicado a este proyecto"
-    val APPLYERROR = "Ocurrio un error"
+
+    val STATE_PENDING = "Pendiente"
+    val STATE_ACCEPTED = "Aceptado"
+    val STATE_REJECTED = "Rechazado"
+
     val USER_CARNET = FirebaseAuth.getInstance().currentUser!!.email!!.substring(0,8)
 
     private var ID_ESTUDIANTE = -1
