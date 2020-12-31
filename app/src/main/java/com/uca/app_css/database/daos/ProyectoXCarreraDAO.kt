@@ -18,7 +18,8 @@ interface ProyectoXCarreraDAO {
             "INNER JOIN carrera c ON pc.idCarrera = c.idCarrera WHERE c.idCarrera = :idCarrera")
     fun getProyectoWithCarrera(idCarrera: Int): LiveData<List<Proyecto>>
 
-    @Query("SELECT * FROM carrera c INNER JOIN proyectoXCarrera pc ON c.idCarrera = pc.idCarrera " +
+    @Query("SELECT c.idCarrera, c.idFacultad, c.nombre FROM carrera c " +
+            "INNER JOIN proyectoXCarrera pc ON c.idCarrera = pc.idCarrera " +
             "INNER JOIN proyecto p ON pc.idProyecto = p.idProyecto WHERE p.idProyecto = :idProyecto")
     fun getCarreraWithProyecto(idProyecto: Int): LiveData<Carrera>
 

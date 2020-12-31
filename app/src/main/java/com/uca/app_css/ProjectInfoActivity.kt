@@ -6,7 +6,6 @@ import android.content.pm.ActivityInfo
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -68,13 +67,12 @@ class ProjectInfoActivity : AppCompatActivity() {
         cuposTxt.text = "Cupos: ${proyecto.cupos}"
         descriptionTxt.text = proyecto.descripcion
 
-        projectViewModel.getCarreraWithProyecto(proyecto.idProyecto).observe(this, {
-            if(it == null){
+        projectViewModel.getCarreraWithProyecto(proyecto.idProyecto).observe(this, {carrera ->
+            if(carrera == null){
                 majorTxt.text = "Carrera: Todas las carreras"
             }
             else{
-                Log.d("HOLA", it.nombre)
-                majorTxt.text = "Carrera: ${it.nombre}"
+                majorTxt.text = "Carrera: ${carrera.nombre}"
             }
         })
     }

@@ -1,19 +1,15 @@
 package com.uca.app_css.database.viewmodels
 
-import android.annotation.SuppressLint
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.uca.app_css.database.RoomDB
 import com.uca.app_css.database.entities.*
 import com.uca.app_css.database.repositories.ProyectRepository
-import com.uca.app_css.utilities.AppConstants
 import com.uca.app_css.utilities.AppConstants.setIdEstudiante
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
