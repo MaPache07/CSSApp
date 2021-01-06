@@ -90,7 +90,7 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
 
     fun getProyectoWithCarrera(idCarrera: Int) = proyectoXCarreraDAO.getProyectoWithCarrera(idCarrera)
 
-    fun getCarreraWithProyecto(idProyecto: Int) = proyectoXCarreraDAO.getCarreraWithProyecto(idProyecto)
+    fun getCarreraWithPerfilWithProyecto(idProyecto: Int) = proyectoXCarreraDAO.getCarreraWithPerfilWithProyecto(idProyecto)
 
     fun getEstudianteWithProyecto(idProyecto: Int) = proyectoXEstudianteDAO.getEstudianteWithProyecto(idProyecto)
 

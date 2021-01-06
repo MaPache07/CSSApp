@@ -10,6 +10,7 @@ object AppConstants {
     val APPLIED = "Se ha aplicado correctamente al proyecto"
     val NOTAPPLIED = "No se ha podido aplicar al proyecto"
     val NOTAPPLIEDAGAIN = "Ya ha aplicado a este proyecto"
+    val ERROR = "Ocurrió un error"
     val FLAG_APPLY = "FlagApply"
 
     val STATE_PENDING = "Pendiente"

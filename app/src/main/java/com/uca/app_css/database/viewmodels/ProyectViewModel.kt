@@ -105,7 +105,7 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
 
     fun getProyectoWithCarrera(idCarrera: Int) = repository.getProyectoWithCarrera(idCarrera)
 
-    fun getCarreraWithProyecto(idProyecto: Int) = repository.getCarreraWithProyecto(idProyecto)
+    fun getCarreraWithPerfilWithProyecto(idProyecto: Int) = repository.getCarreraWithPerfilWithProyecto(idProyecto)
 
     fun getProyectoWithEstudiante(idEstudiante: Int) = repository.getProyectoWithEstudiante(idEstudiante)
 

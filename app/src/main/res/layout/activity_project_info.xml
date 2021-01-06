@@ -76,12 +76,22 @@
         android:textColor="@color/black"
         android:layout_below="@id/project_description"
         android:layout_marginBottom="@dimen/normal_padding"/>
+    <TextView
+        android:id="@+id/project_major_perfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:hint="Carrera"
+        android:textSize="@dimen/normal_text_size"
+        android:textColor="@color/black"
+        android:layout_below="@id/project_major"
+        android:layout_marginBottom="@dimen/normal_padding"/>
     <Button
         android:id="@+id/apply_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/apply"
-        android:layout_below="@id/project_major"
+        android:layout_below="@id/project_major_perfil"
         android:textSize="@dimen/small_text_size">
     </Button>
 </RelativeLayout>

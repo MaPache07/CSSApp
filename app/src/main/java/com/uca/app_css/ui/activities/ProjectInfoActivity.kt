@@ -15,7 +15,9 @@ import com.uca.app_css.R
 import com.uca.app_css.database.entities.Proyecto
 import com.uca.app_css.database.entities.ProyectoXEstudiante
 import com.uca.app_css.database.viewmodels.ProyectViewModel
+import com.uca.app_css.models.CarreraWithPerfil
 import com.uca.app_css.utilities.AppConstants
+import com.uca.app_css.utilities.AppConstants.ERROR
 import com.uca.app_css.utilities.AppConstants.FLAG_APPLY
 import com.uca.app_css.utilities.AppConstants.PROJECT_KEY
 import com.uca.app_css.utilities.AppConstants.getIdEstudiante
@@ -32,6 +34,7 @@ class ProjectInfoActivity : AppCompatActivity() {
     private lateinit var durationTxt: TextView
     private lateinit var cuposTxt: TextView
     private lateinit var majorTxt: TextView
+    private lateinit var majorPerfilTxt: TextView
     private lateinit var applyBtn: Button
     private lateinit var projectViewModel: ProyectViewModel
     private lateinit var proyecto: Proyecto
@@ -56,6 +59,7 @@ class ProjectInfoActivity : AppCompatActivity() {
         cuposTxt = findViewById(R.id.project_cupos)
         descriptionTxt = findViewById(R.id.project_description)
         majorTxt = findViewById(R.id.project_major)
+        majorPerfilTxt = findViewById(R.id.project_major_perfil)
         applyBtn = findViewById(R.id.apply_btn)
 
         if(flagApply) applyBtn.visibility = View.INVISIBLE
@@ -67,13 +71,18 @@ class ProjectInfoActivity : AppCompatActivity() {
         typeTxt.text = "Tipo: ${proyecto.tipo_horas}"
         cuposTxt.text = "Cupos: ${proyecto.cupos}"
         descriptionTxt.text = proyecto.descripcion
+        majorTxt.text = "Carrera:"
 
-        projectViewModel.getCarreraWithProyecto(proyecto.idProyecto).observe(this, {carrera ->
-            if(carrera == null){
-                majorTxt.text = "Carrera: Todas las carreras"
+        projectViewModel.getCarreraWithPerfilWithProyecto(proyecto.idProyecto).observe(this, {carPer ->
+            if(carPer == null || carPer.isEmpty()){
+                majorPerfilTxt.text = ERROR
             }
             else{
-                majorTxt.text = "Carrera: ${carrera.nombre}"
+                var carrerasTxt = ""
+                carPer.forEach{
+                    carrerasTxt += it.carrera + " - " + it.perfilDesc + "\n"
+                }
+                majorPerfilTxt.text = carrerasTxt
             }
         })
     }
