@@ -15,7 +15,7 @@ interface ProyectoXCarreraDAO {
     @Insert
     suspend fun insertProyectoXCarrera(proyectoXCarrera: ProyectoXCarrera)
 
-    @Query("SELECT * FROM proyecto p INNER JOIN proyectoXCarrera pc ON p.idProyecto = pc.idProyecto " +
+    @Query("SELECT *, p.nombre FROM proyecto p INNER JOIN proyectoXCarrera pc ON p.idProyecto = pc.idProyecto " +
             "INNER JOIN carrera c ON pc.idCarrera = c.idCarrera WHERE c.idCarrera = :idCarrera")
     fun getProyectoWithCarrera(idCarrera: Int): LiveData<List<Proyecto>>
 

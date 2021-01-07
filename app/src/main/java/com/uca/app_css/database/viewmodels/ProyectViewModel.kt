@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.uca.app_css.database.RoomDB
 import com.uca.app_css.database.entities.*
 import com.uca.app_css.database.repositories.ProyectRepository
+import com.uca.app_css.utilities.AppConstants.setIdCarrera
 import com.uca.app_css.utilities.AppConstants.setIdEstudiante
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -135,6 +136,7 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
         val response = repository.getEstudianteAsync(carnet)
         if(response != null){
             setIdEstudiante(response.idEstudiante)
+            setIdCarrera(response.idCarrera)
             this@ProyectViewModel.nukeEstudiante()
             this@ProyectViewModel.insertEstudiante(response)
             val responseProEst = repository.getProyectoXEstudianteAsync()
