@@ -50,17 +50,19 @@ class AllProjectsAdapter(var projects: List<Proyecto>, val flag: Boolean, val li
                 itemView.findViewById<TextView>(R.id.my_item_project_name).text = item.nombre
                 val stateTxt = findViewById<TextView>(R.id.project_state)
                 projectsViewModel.getProyectoXEstudianteById(item.idProyecto, getIdEstudiante()).observe(lifecycleOwner, {
-                    if(it.estado == 0) {
-                        stateTxt.text = STATE_PENDING
-                        stateTxt.setBackgroundResource(R.color.pendiente)
-                    }
-                    else if(it.estado == 1) {
-                        stateTxt.text = STATE_ACCEPTED
-                        stateTxt.setBackgroundResource(R.color.aceptado)
-                    }
-                    else if(it.estado == 2) {
-                        stateTxt.text = STATE_REJECTED
-                        stateTxt.setBackgroundResource(R.color.rechazado)
+                    if(it != null){
+                        if(it.estado == 0) {
+                            stateTxt.text = STATE_PENDING
+                            stateTxt.setBackgroundResource(R.color.pendiente)
+                        }
+                        else if(it.estado == 1) {
+                            stateTxt.text = STATE_ACCEPTED
+                            stateTxt.setBackgroundResource(R.color.aceptado)
+                        }
+                        else if(it.estado == 2) {
+                            stateTxt.text = STATE_REJECTED
+                            stateTxt.setBackgroundResource(R.color.rechazado)
+                        }
                     }
                 })
             }
