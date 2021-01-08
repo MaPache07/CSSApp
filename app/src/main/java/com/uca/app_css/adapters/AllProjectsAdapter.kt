@@ -1,5 +1,6 @@
 package com.uca.app_css.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,7 @@ class AllProjectsAdapter(var projects: List<Proyecto>, val flag: Boolean, val li
     }
 
     inner class ProyectoHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView) {
+        @SuppressLint("ResourceAsColor")
         fun bind(item : Proyecto, clickListener: (Proyecto) -> Unit) = with(itemView){
             if(flag){
                 itemView.findViewById<TextView>(R.id.item_project_name).text = item.nombre
@@ -48,9 +50,18 @@ class AllProjectsAdapter(var projects: List<Proyecto>, val flag: Boolean, val li
                 itemView.findViewById<TextView>(R.id.my_item_project_name).text = item.nombre
                 val stateTxt = findViewById<TextView>(R.id.project_state)
                 projectsViewModel.getProyectoXEstudianteById(item.idProyecto, getIdEstudiante()).observe(lifecycleOwner, {
-                    if(it.estado == 0) stateTxt.text = STATE_PENDING
-                    else if(it.estado == 1) stateTxt.text = STATE_ACCEPTED
-                    else if(it.estado == 2) stateTxt.text = STATE_REJECTED
+                    if(it.estado == 0) {
+                        stateTxt.text = STATE_PENDING
+                        stateTxt.setBackgroundResource(R.color.pendiente)
+                    }
+                    else if(it.estado == 1) {
+                        stateTxt.text = STATE_ACCEPTED
+                        stateTxt.setBackgroundResource(R.color.aceptado)
+                    }
+                    else if(it.estado == 2) {
+                        stateTxt.text = STATE_REJECTED
+                        stateTxt.setBackgroundResource(R.color.rechazado)
+                    }
                 })
             }
             this.setOnClickListener{clickListener(item)}
