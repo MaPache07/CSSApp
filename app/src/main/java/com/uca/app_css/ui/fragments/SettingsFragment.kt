@@ -16,7 +16,7 @@ import com.uca.app_css.ui.activities.MainActivity
 import com.uca.app_css.R
 import com.uca.app_css.database.viewmodels.ProyectViewModel
 import com.uca.app_css.utilities.AppConstants.LOGOUT
-import com.uca.app_css.utilities.AppConstants.getUserCarnet
+import com.uca.app_css.utilities.AppConstants.pref
 
 class SettingsFragment : Fragment() {
 
@@ -36,6 +36,7 @@ class SettingsFragment : Fragment() {
         return viewF
     }
 
+    //Función que inicializa las variables a utilizar
     fun initData(){
         mAuth = FirebaseAuth.getInstance()
 
@@ -47,7 +48,9 @@ class SettingsFragment : Fragment() {
         logoutBtn.setOnClickListener(clickListener)
 
         mail.text = mAuth.currentUser!!.email
-        projectsViewModel.getEstudianteByCarnet(getUserCarnet()).observe(viewLifecycleOwner, {
+
+        //Método que obtiene los datos del estudiante tomando como base el carnet
+        projectsViewModel.getEstudianteByCarnet(pref.carnet).observe(viewLifecycleOwner, {
             val nombres = it.nombres + " " + it.apellidos
             names.text = nombres
             projectsViewModel.getCarrera(it.idCarrera).observe(viewLifecycleOwner, {
@@ -56,9 +59,11 @@ class SettingsFragment : Fragment() {
         })
     }
 
+    //Método para cerrar sesión
     val clickListener = View.OnClickListener {
         mAuth.signOut()
         Toast.makeText(activity, LOGOUT, Toast.LENGTH_LONG).show()
+        //Debido a que no se puede acceder a la aplicación sin una sesión activa, se redirigirá a la pantalla de Login
         val intent = Intent(activity, MainActivity::class.java)
         startActivity(intent)
         activity?.finish()

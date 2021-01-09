@@ -24,10 +24,12 @@ interface EstudianteDAO {
     @Query("SELECT * FROM estudiante WHERE carnet = :carnet")
     fun getEstudianteByCarnet(carnet: String): LiveData<Estudiante>
 
+    //Retorna el perfil del estudiante en cuestion
     @Query("SELECT * FROM perfil p INNER JOIN estudiante e ON p.idPerfil = e.idPerfil " +
                 "WHERE e.idEstudiante = :idEstudiante")
     fun getPerfilWithEstudiante(idEstudiante: Int): LiveData<Perfil>
 
+    //Retorna la carrera del estudiante en cuestion
     @Query("SELECT * FROM carrera c INNER JOIN estudiante e ON c.idCarrera = e.idCarrera " +
                 "WHERE e.idEstudiante = :idEstudiante")
     fun getCarreraWithEstudiante(idEstudiante: Int): LiveData<Carrera>

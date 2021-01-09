@@ -16,4 +16,5 @@
 
     <string name="filter_todos">Todos</string>
     <string name="filter_mi_carrera">Mi Carrera</string>
+    <string name="login_txt">Login</string>
 </resources>

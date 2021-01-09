@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.uca.app_css.database.daos.*
 import com.uca.app_css.database.entities.*
-import com.uca.app_css.utilities.AppConstants.getIdEstudiante
+import com.uca.app_css.utilities.AppConstants.pref
 import kotlinx.coroutines.tasks.await
 
 class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: CarreraDAO, private val estudianteDAO: EstudianteDAO,
@@ -98,6 +98,7 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
 
     //GETFireBase
 
+    //Extrae las facultades de Firestore
     suspend fun getAllFacultadAsync(): List<Facultad>{
         val facultades = mutableListOf<Facultad>()
         db.collection("Facultad").get().addOnSuccessListener {documents ->
@@ -109,6 +110,7 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
         return facultades
     }
 
+    //Extrae las carreras de Firestore
     suspend fun getAllCarreraAsync(): List<Carrera>{
         val carreras = mutableListOf<Carrera>()
         db.collection("Carrera").get().addOnSuccessListener {documents ->
@@ -120,6 +122,7 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
         return carreras
     }
 
+    //Extrae el estuddiante en cuestion de Firestore
     suspend fun getEstudianteAsync(carnet: String): Estudiante? {
         var estudiante: Estudiante? = null
         db.collection("Estudiante").whereEqualTo("carnet", carnet).get().addOnSuccessListener {documents ->
@@ -132,6 +135,7 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
         return estudiante
     }
 
+    //Extrae los proyectos de Firestore
     suspend fun getAllProyectoAsync(): List<Proyecto>{
         val proyects = mutableListOf<Proyecto>()
         db.collection("Proyecto").get().addOnSuccessListener {documents ->
@@ -143,6 +147,7 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
         return proyects
     }
 
+    //Extrae los perfiles de Firestore
     suspend fun getAllPerfilAsync(): List<Perfil>{
         val perfiles = mutableListOf<Perfil>()
         db.collection("Perfil").get().addOnSuccessListener {documents ->
@@ -154,6 +159,7 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
         return perfiles
     }
 
+    //Extrae las relaciones entre proyecto y carrera de Firestore
     suspend fun getAllProyectoXCarreraAsync(): List<ProyectoXCarrera>{
         val proxCars = mutableListOf<ProyectoXCarrera>()
         db.collection("ProyectoxCarrera").get().addOnSuccessListener {documents ->
@@ -165,9 +171,10 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
         return proxCars
     }
 
+    //Extrae las relaciones entre los proyectos y el estudiante en cuestion de Firestore
     suspend fun getProyectoXEstudianteAsync(): List<ProyectoXEstudiante>{
         val proxEsts = mutableListOf<ProyectoXEstudiante>()
-        db.collection("ProyectoxEstudiante").whereEqualTo("idEstudiante", getIdEstudiante()).get().addOnSuccessListener {documents ->
+        db.collection("ProyectoxEstudiante").whereEqualTo("idEstudiante", pref.idEstudiante).get().addOnSuccessListener {documents ->
             for(document in documents){
                 val proxEst = document.toObject(ProyectoXEstudiante::class.java)
                 proxEsts.add(proxEst)
@@ -187,11 +194,13 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
         return admins
     }
 
+    //Inserta en Firestore una nueva relacion entre un pryecto y un estudiante (Aplica a dicho proyecto)
     fun postProyectoXEstudiante(proEst: ProyectoXEstudiante){
         db.collection("ProyectoxEstudiante").add(proEst)
     }
 
     //NukeTables
+    //Metodos que eliminan el contenido de las tablas
 
     @WorkerThread
     suspend fun nukeAdmin(){

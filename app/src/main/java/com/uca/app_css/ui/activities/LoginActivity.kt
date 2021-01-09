@@ -35,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
         initData()
     }
 
+    //Función que inicializa las variables a utilizar
     fun initData(){
         mAuth = FirebaseAuth.getInstance()
 
@@ -46,9 +47,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     val clickListener = View.OnClickListener {
-        email= emailBox.text.toString()
+        //Se obtiene el correo electrónico y la contraseña
+        email = emailBox.text.toString()
         contra = pswdBox.text.toString()
 
+        //Se verifica que ninguno de los campos vengan vacios
         if(TextUtils.isEmpty(email) || TextUtils.isEmpty(contra)){
             if(TextUtils.isEmpty(email)) emailBox.error = NOTEMPTY
             else emailBox.error = null
@@ -60,6 +63,7 @@ class LoginActivity : AppCompatActivity() {
         val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo
 
+        //Se verifica que exista conexion a internet
         if(activeNetwork != null && activeNetwork.isConnected){
             mAuth.signInWithEmailAndPassword(email, contra).addOnCompleteListener { task ->
                 if(task.isSuccessful){

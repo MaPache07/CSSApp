@@ -15,10 +15,12 @@ interface ProyectoXCarreraDAO {
     @Insert
     suspend fun insertProyectoXCarrera(proyectoXCarrera: ProyectoXCarrera)
 
+    //Retorna los proyectos de una determinada carrera
     @Query("SELECT *, p.nombre FROM proyecto p INNER JOIN proyectoXCarrera pc ON p.idProyecto = pc.idProyecto " +
             "INNER JOIN carrera c ON pc.idCarrera = c.idCarrera WHERE c.idCarrera = :idCarrera")
     fun getProyectoWithCarrera(idCarrera: Int): LiveData<List<Proyecto>>
 
+    //Retorna un modelo que contiene los datos del perfil para cada carrera de un determinado proyecto
     @Query("SELECT c.idCarrera, pe.idPerfil, c.nombre AS carrera, pe.perfil, pe.descripcion AS perfilDesc FROM carrera c " +
             "INNER JOIN proyectoXCarrera pc ON c.idCarrera = pc.idCarrera " +
             "INNER JOIN proyecto p ON pc.idProyecto = p.idProyecto " +

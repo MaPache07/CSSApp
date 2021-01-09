@@ -1,6 +1,7 @@
 package com.uca.app_css.utilities
 
 object AppConstants {
+    lateinit var pref: Preferences
     val PROJECT_KEY = "ProjectKey"
     val LOGOUT = "Se ha cerrado sesión correctamente"
     val LOGIN = "Se ha iniciado sesión correctamente"
@@ -16,23 +17,4 @@ object AppConstants {
     val STATE_PENDING = "Pendiente"
     val STATE_ACCEPTED = "Aceptado"
     val STATE_REJECTED = "Rechazado"
-
-    private var USER_CARNET = "" //FirebaseAuth.getInstance().currentUser!!.email!!.substring(0,8)
-    private var ID_ESTUDIANTE = -1
-    private var ID_CARRERA = -1
-
-    fun setUserCarnet(carnet: String){
-        this.USER_CARNET = carnet
-    }
-    fun getUserCarnet() = this.USER_CARNET
-
-    fun setIdEstudiante(idEstudiante: Int){
-        this.ID_ESTUDIANTE = idEstudiante
-    }
-    fun getIdEstudiante() = this.ID_ESTUDIANTE
-
-    fun setIdCarrera(idCarrera: Int){
-        this.ID_CARRERA = idCarrera
-    }
-    fun getIdCarrera() = this.ID_CARRERA
 }

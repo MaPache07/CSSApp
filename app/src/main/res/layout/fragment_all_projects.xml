@@ -27,8 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/light_gray"
-        android:layout_below="@id/text_dashboard"
-        android:layout_marginHorizontal="@dimen/normal_padding"/>
+        android:layout_below="@id/text_dashboard"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"

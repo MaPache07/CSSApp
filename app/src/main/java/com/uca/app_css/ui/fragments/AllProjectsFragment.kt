@@ -2,7 +2,6 @@ package com.uca.app_css.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -15,19 +14,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.uca.app_css.ui.activities.ProjectInfoActivity
 import com.uca.app_css.R
-import com.uca.app_css.adapters.AllProjectsAdapter
+import com.uca.app_css.adapters.ProjectsAdapter
 import com.uca.app_css.database.entities.Proyecto
 import com.uca.app_css.database.viewmodels.ProyectViewModel
 import com.uca.app_css.utilities.AppConstants
 import com.uca.app_css.utilities.AppConstants.PROJECT_KEY
-import com.uca.app_css.utilities.AppConstants.getIdCarrera
+import com.uca.app_css.utilities.AppConstants.pref
 
 class AllProjectsFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var allProjectsViewModel: ProyectViewModel
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var viewAdapter: AllProjectsAdapter
+    private lateinit var viewAdapter: ProjectsAdapter
     private lateinit var mSpinnerItem: MenuItem
     private lateinit var spinnerFilter: Spinner
     private lateinit var arrayFilter : Array<String>
@@ -48,6 +47,7 @@ class AllProjectsFragment : Fragment() {
         return viewF
     }
 
+    //Función que inicializa las variables a utilizar
     fun initData(){
         auth = FirebaseAuth.getInstance()
         arrayFilter = arrayOf(getString(R.string.filter_todos), getString(R.string.filter_mi_carrera))
@@ -57,14 +57,17 @@ class AllProjectsFragment : Fragment() {
         }
     }
 
+    //Menu para filtrar entre Todos los proyectos o unicamente los de la carrera del estudiante
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.all_projects_menu, menu)
 
+        //Spinner que contendrá las opciones "Todos" y "Mi carrera"
         mSpinnerItem = menu.findItem(R.id.filter_all_projects)
         spinnerFilter = mSpinnerItem.actionView as Spinner
         spinnerFilter.adapter = ArrayAdapter(requireContext(),R.layout.simple_spinner_item, R.id.item_spinner, arrayFilter)
 
+        //Función que cambia el valor de la flag dependiendeo del elemente seleccionado
         spinnerFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 if(p2 == 0){
@@ -83,21 +86,23 @@ class AllProjectsFragment : Fragment() {
         }
     }
 
+    //Dependiendo del valor de la flag, mostrará la lista de todos los proyectos o unicamente los de la carrera del estudiante
     fun changeList(){
         if(flagObserver) {
-            allProjectsViewModel.getProyectoWithCarrera(getIdCarrera()).removeObserver(observer)
+            allProjectsViewModel.getProyectoWithCarrera(pref.idCarrera).removeObserver(observer)
             allProjectsViewModel.allProyecto.observe(viewLifecycleOwner, observer)
         }
         else{
             allProjectsViewModel.allProyecto.removeObserver(observer)
-            allProjectsViewModel.getProyectoWithCarrera(getIdCarrera()).observe(viewLifecycleOwner, observer)
+            allProjectsViewModel.getProyectoWithCarrera(pref.idCarrera).observe(viewLifecycleOwner, observer)
         }
 
     }
 
+    //Función que inicializa el recyclerView
     fun initRecycler(match : List<Proyecto>){
         viewManager = LinearLayoutManager(context)
-        viewAdapter = AllProjectsAdapter(match, true, viewLifecycleOwner, this) {matchItem: Proyecto -> onClicked(matchItem)}
+        viewAdapter = ProjectsAdapter(match, true, viewLifecycleOwner, this) { matchItem: Proyecto -> onClicked(matchItem)}
         viewF.findViewById<RecyclerView>(R.id.recycler).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -105,6 +110,7 @@ class AllProjectsFragment : Fragment() {
         }
     }
 
+    //Método onClick que dirigirá a la pantalla de ProjectInfo con la flag false, o sea, que no ha aplicado a dicho proyecto (Para mostrar el botón de aplicar)
     fun onClicked(item : Proyecto){
         val extras = Bundle()
         extras.putParcelable(PROJECT_KEY, item)

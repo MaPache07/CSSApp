@@ -1,14 +1,15 @@
 package com.uca.app_css.database.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.uca.app_css.database.RoomDB
 import com.uca.app_css.database.entities.*
 import com.uca.app_css.database.repositories.ProyectRepository
-import com.uca.app_css.utilities.AppConstants.setIdCarrera
-import com.uca.app_css.utilities.AppConstants.setIdEstudiante
+import com.uca.app_css.ui.activities.MainActivity
+import com.uca.app_css.utilities.AppConstants.pref
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -112,36 +113,40 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
 
     //GETFireBase
 
+    //Extrae las facultades de Firestore y las inserta en la base de datos local
     fun getAllFacultadAsync() = viewModelScope.launch {
         val response = repository.getAllFacultadAsync()
+        this@ProyectViewModel.nukeFacultad()
         if(response.isNotEmpty()){
-            this@ProyectViewModel.nukeFacultad()
             response.forEach {
                 this@ProyectViewModel.insertFacultad(it)
             }
         }
     }
 
+    //Extrae las carreras de Firestore y las inserta en la base de datos local
     fun getAllCarreraAsync() = viewModelScope.launch {
         val response = repository.getAllCarreraAsync()
+        this@ProyectViewModel.nukeCarrera()
         if(response.isNotEmpty()){
-            this@ProyectViewModel.nukeCarrera()
             response.forEach {
                 this@ProyectViewModel.insertCarrera(it)
             }
         }
     }
 
+    //Extrae el estudiante y sus proyectos de Firestore e inserta los datos en las tablas respectivas
+    //Ademas guarda el id del estudiante y de la carrera
     fun getEstudianteAsync(carnet: String) = viewModelScope.launch {
         val response = repository.getEstudianteAsync(carnet)
         if(response != null){
-            setIdEstudiante(response.idEstudiante)
-            setIdCarrera(response.idCarrera)
+            pref.idEstudiante = response.idEstudiante
+            pref.idCarrera = response.idCarrera
             this@ProyectViewModel.nukeEstudiante()
             this@ProyectViewModel.insertEstudiante(response)
             val responseProEst = repository.getProyectoXEstudianteAsync()
+            this@ProyectViewModel.nukeProyectoXEstudiante()
             if(responseProEst.isNotEmpty()){
-                this@ProyectViewModel.nukeProyectoXEstudiante()
                 responseProEst.forEach {
                     this@ProyectViewModel.insertProyectoXEstudiante(it)
                 }
@@ -149,30 +154,33 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
         }
     }
 
+    //Extrae los proyectos de Firestore y los inserta en la base de datos local
     fun getAllProyectoAsync() = viewModelScope.launch {
         val response = repository.getAllProyectoAsync()
+        this@ProyectViewModel.nukeProyecto()
         if(response.isNotEmpty()){
-            this@ProyectViewModel.nukeProyecto()
             response.forEach {
                 this@ProyectViewModel.insertProyecto(it)
             }
         }
     }
 
+    //Extrae los perfiles de Firestore y los inserta en la base de datos local
     fun getAllPerfilAsync() = viewModelScope.launch {
         val response = repository.getAllPerfilAsync()
+        this@ProyectViewModel.nukePerfil()
         if(response.isNotEmpty()){
-            this@ProyectViewModel.nukePerfil()
             response.forEach {
                 this@ProyectViewModel.insertPerfil(it)
             }
         }
     }
 
+    //Extrae las relaciones entre proyecto y carrera de Firestore y las inserta en la base de datos local
     fun getAllProyectoXCarreraAsync() = viewModelScope.launch {
         val response = repository.getAllProyectoXCarreraAsync()
+        this@ProyectViewModel.nukeProyectoXCarrera()
         if(response.isNotEmpty()){
-            this@ProyectViewModel.nukeProyectoXCarrera()
             response.forEach {
                 this@ProyectViewModel.insertProyectoXCarrera(it)
             }
@@ -181,19 +189,21 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
 
     fun getAllAdminAsync() = viewModelScope.launch {
         val response = repository.getAllAdminAsync()
+        this@ProyectViewModel.nukeAdmin()
         if(response.isNotEmpty()){
-            this@ProyectViewModel.nukeAdmin()
             response.forEach {
                 this@ProyectViewModel.insertAdmin(it)
             }
         }
     }
 
+    //Inserta en Firestore una nueva relacion entre un pryecto y un estudiante (Aplica a dicho proyecto)
     fun postProyectoXEstudiante(proEst: ProyectoXEstudiante) = viewModelScope.launch {
         repository.postProyectoXEstudiante(proEst)
     }
 
     //NukeTables
+    //Metodos que eliminan el contenido de las tablas
 
     private suspend fun nukeAdmin() = repository.nukeAdmin()
 

@@ -10,19 +10,14 @@
     android:layout_marginBottom="@dimen/loginViewsMargin"
     android:background="@color/whiteCardColor"
     android:id="@+id/login_child_fragment">
-
-
-
     <LinearLayout
         style="@style/linearParent"
         android:layout_gravity="center"
         android:padding="@dimen/loginViewsMargin">
-
         <TextView
             style="@style/headerTextPrimary"
-            android:text="Login"
+            android:text="@string/login_txt"
             android:layout_marginTop="@dimen/loginViewsMargin"/>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputEmail"
             style="@style/parent"
@@ -34,7 +29,6 @@
                 android:maxLines="1"
                 android:hint="@string/login_email_hint"/>
         </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputPassword"
             style="@style/parent"
@@ -46,24 +40,11 @@
                 android:maxLines="1"
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            style="@style/viewParent"
-            android:text="Forgot Password?"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/newsMoreTextSize"
-            android:layout_gravity="end"
-            android:onClick="viewForgotPAssword"
-            android:layout_marginTop="10dp"/>
-
         <Button
             android:id="@+id/cirLoginButton"
             style="@style/loginButton"
             android:text="Login"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/loginViewsMargin"/>
-
-
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>
