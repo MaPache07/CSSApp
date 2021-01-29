@@ -50,6 +50,10 @@ class MyProjectsFragment : Fragment(){
                 recyclerView.visibility = View.VISIBLE
                 emptyTxt.visibility = View.GONE
             }
+            else{
+                recyclerView.visibility = View.GONE
+                emptyTxt.visibility = View.VISIBLE
+            }
         })
     }
 

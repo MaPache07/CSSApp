@@ -2,14 +2,17 @@ package com.uca.app_css.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.pm.ActivityInfo
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.uca.app_css.R
 import com.uca.app_css.database.entities.Proyecto
@@ -37,18 +40,20 @@ class ProjectInfoActivity : AppCompatActivity() {
     private lateinit var applyBtn: Button
     private lateinit var projectViewModel: ProyectViewModel
     private lateinit var proyecto: Proyecto
+    private lateinit var alertBuilder: AlertDialog.Builder
     private var flagApply: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_info)
+        initData()
         bindData()
     }
 
     //Funcion que recibe y enlaza la data con la vista
     @SuppressLint("SetTextI18n")
-    fun bindData(){
+    fun initData(){
         //Proyecto del cual se mostrará la información
         proyecto = intent.extras!!.getParcelable(PROJECT_KEY)!!
         //Variable que nos dice si el proyecto en cuestión ya ha sido aplicado o no
@@ -65,10 +70,11 @@ class ProjectInfoActivity : AppCompatActivity() {
         majorPerfilTxt = findViewById(R.id.project_major_perfil)
         applyBtn = findViewById(R.id.apply_btn)
 
-        //Dependiendo si el proyecto ya ha sido aplicado o no se motrará un botón para aplicar a el
-        if(flagApply) applyBtn.visibility = View.INVISIBLE
-        else applyBtn.setOnClickListener(clickListener)
+        //Dialogo para confirmar la accion (Ya sea aplicar al proyecto o desaplicar)
+        alertBuilder = AlertDialog.Builder(this)
+    }
 
+    fun bindData(){
         nameTxt.text = proyecto.nombre
         onChargeTxt.text = proyecto.encargado
         durationTxt.text = "Duración: ${proyecto.fecha_inicio} a ${proyecto.fecha_fin}"
@@ -90,11 +96,33 @@ class ProjectInfoActivity : AppCompatActivity() {
                 majorPerfilTxt.text = carrerasTxt
             }
         })
+
+        //Se aplica el clickLister para mostrar el AlertDialog
+        applyBtn.setOnClickListener { alertBuilder.create().show() }
+
+        //Dependiendo si el proyecto ya ha sido aplicado o no se motrará un botón para aplicar a el
+        if(flagApply){ //Ya ha aplicado
+            applyBtn.text = getString(R.string.des_apply)
+            alertBuilder.setMessage(R.string.confirm_des_apply)
+            //Se define el texto del boton como "Eliminar" y se aplica el clickLister para eliminar
+            alertBuilder.setPositiveButton(R.string.ok_des_apply){ dialogInterface, i ->
+                projectViewModel.eliminarProyectoXEstudiante(proyecto.idProyecto, pref.idEstudiante)
+                //A la ve se cierra la actividad
+                finish()
+            }
+        }
+        else { //No ha aplicado
+            alertBuilder.setMessage(R.string.confirm_apply)
+            //Se define el texto del boton como "Aplicar" y se aplica el clickLister para aplicar
+            alertBuilder.setPositiveButton(R.string.apply, clickListener)
+        }
+        //Se define el clickListener para el boton "Cancelar"
+        alertBuilder.setNegativeButton(R.string.cancel_des_apply, {dialogInterface, i -> })
     }
 
     //Metodo para aplicar a un proyecto
     @SuppressLint("SimpleDateFormat")
-    val clickListener = View.OnClickListener {
+    val clickListener = DialogInterface.OnClickListener {dialogInterface, i ->
         val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo
         //Primero, se verifica que exista conexión a internet

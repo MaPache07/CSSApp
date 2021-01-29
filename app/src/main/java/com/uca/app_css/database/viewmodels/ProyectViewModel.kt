@@ -111,6 +111,11 @@ class ProyectViewModel(private val app: Application) : AndroidViewModel(app){
 
     fun getProyectoWithEstudiante(idEstudiante: Int) = repository.getProyectoWithEstudiante(idEstudiante)
 
+    fun eliminarProyectoXEstudiante(idProyecto: Int, idEstudiante: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.eliminarProyectoXEstudiante(idProyecto, idEstudiante)
+        repository.deleteProyectoXEstudiante(idProyecto, idEstudiante)
+    }
+
     //GETFireBase
 
     //Extrae las facultades de Firestore y las inserta en la base de datos local

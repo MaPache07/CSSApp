@@ -96,7 +96,12 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
 
     fun getProyectoWithEstudiante(idEstudiante: Int) = proyectoXEstudianteDAO.getProyectoWithEstudiante(idEstudiante)
 
-    //GETFireBase
+    @WorkerThread
+    suspend fun eliminarProyectoXEstudiante(idProyecto: Int, idEstudiante: Int){
+        proyectoXEstudianteDAO.eliminarProyectoXEstudiante(idProyecto, idEstudiante)
+    }
+
+    //FireBase
 
     //Extrae las facultades de Firestore
     suspend fun getAllFacultadAsync(): List<Facultad>{
@@ -183,6 +188,7 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
         return proxEsts
     }
 
+    //Extrae los admin de Firestore
     suspend fun getAllAdminAsync(): List<Admin>{
         val admins = mutableListOf<Admin>()
         db.collection("Admin").get().addOnSuccessListener {documents ->
@@ -197,6 +203,16 @@ class ProyectRepository(private val adminDAO: AdminDAO, private val carreraDAO: 
     //Inserta en Firestore una nueva relacion entre un pryecto y un estudiante (Aplica a dicho proyecto)
     fun postProyectoXEstudiante(proEst: ProyectoXEstudiante){
         db.collection("ProyectoxEstudiante").add(proEst)
+    }
+
+    //Elimina de Firestore un registro de ProyectoxEstudiante (Desaplicar)
+    fun deleteProyectoXEstudiante(idProyecto: Int, idEstudiante: Int){
+        db.collection("ProyectoxEstudiante").whereEqualTo("idProyecto", idProyecto).whereEqualTo("idEstudiante", idEstudiante).get()
+            .addOnSuccessListener {documents ->
+                for(document in documents){
+                    db.collection("ProyectoxEstudiante").document(document.id).delete()
+                }
+        }
     }
 
     //NukeTables

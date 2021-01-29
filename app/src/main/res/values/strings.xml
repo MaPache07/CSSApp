@@ -11,6 +11,12 @@
     <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
     <string name="log_out">Cerrar sesión</string>
     <string name="apply">Aplicar</string>
+    <string name="des_apply">Eliminar</string>
+    <string name="confirm_des_apply">¿Eliminar este proyecto?</string>
+    <string name="confirm_apply">¿Aplicar a este proyecto?</string>
+    <string name="ok_des_apply">ELIMINAR</string>
+    <string name="cancel_des_apply">CANCELAR</string>
+
     <string name="not_applied_projects">No se ha aplicado a ningún proyecto todavía</string>
     <string name="social_services_options">Opciones de servicio social</string>
 

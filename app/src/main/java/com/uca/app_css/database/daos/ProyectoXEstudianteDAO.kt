@@ -27,6 +27,9 @@ interface ProyectoXEstudianteDAO {
             "INNER JOIN estudiante e ON pe.idEstudiante = e.idEstudiante WHERE e.idEstudiante = :idEstudiante")
     fun getProyectoWithEstudiante(idEstudiante: Int): LiveData<List<Proyecto>>
 
+    @Query("DELETE FROM proyectoXEstudiante WHERE idProyecto = :idProyecto AND idEstudiante = :idEstudiante")
+    suspend fun eliminarProyectoXEstudiante(idProyecto: Int, idEstudiante: Int)
+
     @Query("DELETE FROM proyectoXEstudiante")
     suspend fun nukeProyectoXEstudiante()
 }
