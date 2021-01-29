@@ -65,6 +65,7 @@ class AllProjectsFragment : Fragment() {
         //Spinner que contendrá las opciones "Todos" y "Mi carrera"
         mSpinnerItem = menu.findItem(R.id.filter_all_projects)
         spinnerFilter = mSpinnerItem.actionView as Spinner
+        spinnerFilter.gravity = 8388613
         spinnerFilter.adapter = ArrayAdapter(requireContext(),R.layout.simple_spinner_item, R.id.item_spinner, arrayFilter)
 
         //Función que cambia el valor de la flag dependiendeo del elemente seleccionado

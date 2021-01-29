@@ -6,7 +6,8 @@
     android:orientation="horizontal"
     android:id="@+id/cardview_all_projects"
     android:paddingHorizontal="@dimen/normal_padding"
-    android:paddingTop="@dimen/normal_padding">
+    android:paddingTop="@dimen/normal_padding"
+    android:foreground="?android:attr/selectableItemBackground">
     <TextView
         android:id="@+id/my_item_project_name"
         android:layout_width="wrap_content"
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/super_small_text_size"
         android:textColor="@color/white"
+        android:gravity="center"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:padding="@dimen/small_padding"/>
