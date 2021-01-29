@@ -18,7 +18,7 @@
     <string name="ok_des_apply">ELIMINAR</string>
     <string name="cancel_des_apply">CANCELAR</string>
 
-    <string name="not_applied_projects">No se ha aplicado a ningún proyecto todavía</string>
+    <string name="not_applied_projects">No se ha aplicado a ningún proyecto</string>
     <string name="social_services_options">Opciones de servicio social</string>
 
     <string name="filter_todos">Todos</string>
