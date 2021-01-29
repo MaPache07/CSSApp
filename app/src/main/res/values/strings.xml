@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">app_css</string>
     <string name="title_projects">Proyectos</string>
+    <string name="title_project">Proyecto</string>
     <string name="title_my_projects">Mis proyectos</string>
     <string name="title_settings">Configuración</string>
 

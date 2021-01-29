@@ -46,6 +46,7 @@ class ProjectInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         super.onCreate(savedInstanceState)
+        this.setTitle(R.string.title_project)
         setContentView(R.layout.activity_project_info)
         initData()
         bindData()
